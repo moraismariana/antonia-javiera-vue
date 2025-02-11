@@ -1,0 +1,85 @@
+.header-bg {
+  background: url("@/assets/img/inicio/introducao-bg.webp");
+  background-size: cover;
+}
+
+.header {
+  @include container;
+  @include ptop-3;
+  @include pbottom-3;
+  color: $w;
+  nav {
+    display: flex;
+    justify-content: space-between;
+    gap: $s5;
+    align-items: center;
+    ul {
+      display: flex;
+      gap: $s4;
+      li {
+        @include link-text;
+        padding: 8px 0;
+      }
+      @include screen(tablet) {
+        display: none;
+      }
+    }
+  }
+  svg {
+    path,
+    rect {
+      transition: 0.2s;
+    }
+  }
+}
+
+.header.menu-mobile-ativo {
+  z-index: 3;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  svg {
+    path,
+    rect {
+      fill: $c1 !important;
+    }
+  }
+}
+
+.menu-mobile-icone {
+  display: none;
+  button {
+    border: none;
+    background: none;
+    cursor: pointer;
+    padding: 8px 4px;
+  }
+  @include screen(tablet) {
+    display: block;
+  }
+}
+
+.menu-mobile {
+  display: none;
+  background-color: $w1;
+  position: fixed;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  ul {
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+  }
+  a {
+    display: block;
+    @include link-text;
+    text-align: center;
+    padding: $s2;
+    color: $c1;
+  }
+  &.menu-mobile-ativo {
+    display: block;
+  }
+}

@@ -1,0 +1,23 @@
+.inicio-introducao-bg {
+  background: url("@/assets/img/inicio/introducao-bg.webp");
+  background-size: cover;
+  background-position: center;
+  height: 100vh;
+}
+
+.inicio-introducao {
+  @include container;
+  color: $w;
+  position: relative;
+  top: calc(50% - 92px);
+  transform: translateY(-50%);
+  h1 {
+    @include title-1;
+    @include screen(mobile) {
+      @include mbottom-3;
+    }
+  }
+  p {
+    @include subtitle-1;
+  }
+}

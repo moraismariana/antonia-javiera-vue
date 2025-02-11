@@ -1,0 +1,111 @@
+.conteudos-conteudo {
+  @include container;
+  h1 {
+    @include mtop-7;
+    @include mbottom-7;
+    @include title-2;
+  }
+}
+
+.conteudos-artigos-item {
+  display: block;
+  position: relative;
+  p {
+    @include text-2;
+    @include mtop-1;
+    color: $c3;
+    display: none;
+  }
+  & > div:nth-of-type(1) {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $s4;
+    h4 {
+      @include subtitle-1;
+      color: $c2;
+    }
+    img {
+      display: none;
+    }
+  }
+  &:not(:nth-of-type(1)) {
+    @include ptop-4;
+  }
+  &:not(:last-of-type) {
+    @include pbottom-4;
+    &::after {
+      content: "";
+      width: 100%;
+      height: 1px;
+      background-color: rgba(118, 100, 90, 0.2);
+      position: absolute;
+      bottom: 0;
+      left: 0;
+    }
+  }
+  &:hover {
+    p {
+      display: block;
+      animation: left-to-right 0.28s forwards;
+    }
+    & > div:nth-of-type(1) {
+      img {
+        display: block;
+        animation: left-to-right 0.28s forwards;
+      }
+    }
+  }
+}
+
+.conteudos-artigos {
+  @include mbottom-7;
+}
+
+@keyframes right-to-left {
+  from {
+    transform: translateX($s2);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+@keyframes left-to-right {
+  from {
+    transform: translateX(-$s2);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+
+// responsividade
+
+.conteudos-artigos-item {
+  @include screen(tablet) {
+    p {
+      display: block;
+      padding-right: $s4;
+    }
+    & > div:nth-of-type(1) {
+      img {
+        display: block;
+      }
+    }
+    &:hover {
+      p {
+        animation: none;
+      }
+      & > div:nth-of-type(1) {
+        img {
+          animation: none;
+        }
+      }
+    }
+  }
+}

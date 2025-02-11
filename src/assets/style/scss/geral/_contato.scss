@@ -1,0 +1,33 @@
+.contato-bg {
+  background-color: $w;
+}
+
+.contato {
+  @include container;
+  @include ptop-9;
+  @include pbottom-9;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  h2 {
+    @include title-2;
+    margin-right: $s5;
+  }
+  p {
+    @include text-1;
+    @include mbottom-4;
+  }
+  a {
+    @include link-box;
+    display: flex;
+    align-items: center;
+    gap: $s3;
+  }
+}
+
+// responsividade
+.contato {
+  @include screen(mobile) {
+    grid-template-columns: 1fr;
+    gap: $s4;
+  }
+}

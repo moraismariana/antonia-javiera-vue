@@ -1,0 +1,65 @@
+.footer {
+  & > div:nth-of-type(1) {
+    @include container;
+    @include ptop-9;
+    @include pbottom-9;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    .footer-links {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: $s4;
+      @include text-1;
+      font-size: px-rem(18px);
+      ul {
+        display: flex;
+        flex-direction: column;
+        gap: $s1;
+      }
+    }
+  }
+  & > div:nth-of-type(2) {
+    text-align: center;
+    @include ptop-2;
+    @include pbottom-2;
+    position: relative;
+    &::before {
+      content: "";
+      position: absolute;
+      top: -2px;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: rgba(118, 100, 90, 0.2);
+    }
+    &::after {
+      content: "";
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background-color: rgba(118, 100, 90, 0.2);
+    }
+  }
+  &.w1 {
+    background-color: $w1;
+  }
+  &.w2 {
+    background-color: $w2;
+  }
+}
+
+// responsividade
+
+.footer {
+  @include screen(mobile) {
+    & > div:nth-of-type(1) {
+      grid-template-columns: 1fr;
+      gap: $s6;
+      .footer-links {
+        gap: 0;
+      }
+    }
+  }
+}

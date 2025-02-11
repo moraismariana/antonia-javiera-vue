@@ -1,0 +1,95 @@
+@mixin title-1 {
+  font-family: "Raleway";
+  font-size: px-rem(65px);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 1em;
+  @include screen(notebook-s) {
+    font-size: px-rem(50px);
+  }
+  @include screen(tablet) {
+    font-size: px-rem(46px);
+  }
+  // @include screen(mobile) {
+  //   font-size: px-rem(40px);
+  // }
+}
+
+@mixin title-2 {
+  font-family: "Raleway";
+  font-size: px-rem(40px);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 1.1em;
+  @include screen(notebook-s) {
+    font-size: px-rem(36px);
+  }
+  @include screen(mobile) {
+    font-size: px-rem(33px);
+  }
+}
+
+@mixin title-3 {
+  font-family: "Raleway";
+  font-size: px-rem(30px);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 1em;
+  // @include screen(notebook-s) {
+  //   font-size: px-rem(50px);
+  // }
+  // @include screen(mobile) {
+  //   font-size: px-rem(46px);
+  // }
+}
+
+@mixin subtitle-1 {
+  font-family: "Reddit Sans";
+  font-size: px-rem(22px);
+  font-weight: 400;
+  line-height: 1.6em;
+  @include screen(notebook-s) {
+    font-size: px-rem(19px);
+  }
+}
+
+@mixin text-1 {
+  font-family: "Reddit Sans";
+  font-size: px-rem(19px);
+  font-weight: 400;
+  line-height: 1.6em;
+  @include screen(notebook-s) {
+    font-size: px-rem(17px);
+  }
+}
+
+@mixin text-2 {
+  font-family: "Reddit Sans";
+  font-size: px-rem(17px);
+  font-weight: 400;
+  line-height: 1.6em;
+}
+
+@mixin link-text {
+  font-family: "Raleway";
+  font-size: px-rem(16px);
+  font-weight: 500;
+  text-transform: uppercase;
+  // letter-spacing: 0.05em;
+}
+
+@mixin link-box {
+  font-family: "Raleway";
+  font-size: px-rem(19px);
+  font-weight: 500;
+  text-transform: uppercase;
+  // letter-spacing: 0.03em;
+  border: 1px solid $c1;
+  padding: $s1 $s3;
+  display: block;
+  max-width: fit-content;
+  transition: 0.28s;
+  &:hover {
+    transform: translateX($s1);
+  }
+}

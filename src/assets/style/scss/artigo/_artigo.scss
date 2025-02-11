@@ -1,0 +1,50 @@
+.artigo {
+  @include container;
+  .artigo-voltar {
+    @include link-text;
+    max-width: fit-content;
+    color: $c2;
+    display: flex;
+    align-items: center;
+    gap: $s3;
+    @include mtop-4;
+    @include mbottom-4;
+    transition: 0.28s;
+    &:hover {
+      transform: translateX($s1);
+    }
+  }
+  h1 {
+    @include title-2;
+    @include mbottom-7;
+  }
+  h2 {
+    @include title-3;
+    @include mbottom-5;
+  }
+  p {
+    @include text-1;
+    @include mbottom-5;
+  }
+  img {
+    @include align-div;
+    max-width: 100%;
+    height: auto;
+  }
+  .artigo-imagem {
+    @include mbottom-5;
+  }
+  .artigo-conteudo {
+    @include mbottom-7;
+  }
+}
+
+// responsividade
+
+.artigo {
+  @include screen(tablet) {
+    h1 {
+      @include mbottom-5;
+    }
+  }
+}

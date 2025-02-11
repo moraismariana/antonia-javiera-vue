@@ -1,0 +1,221 @@
+// Function Tipografia
+@function px-rem($px, $base: 16px) {
+  @return $px / $base * 1rem;
+}
+
+// RESPONSIVIDADE
+@mixin screen($tela) {
+  @if $tela == "mobile" {
+    @media (max-width: 480px) {
+      @content;
+    }
+  } @else if $tela == "tablet" {
+    @media (max-width: 768px) {
+      @content;
+    }
+  } @else if $tela == "notebook-s" {
+    @media (max-width: 1024px) {
+      @content;
+    }
+  } @else if $tela == "notebook-m" {
+    @media (max-width: 1380px) {
+      @content;
+    }
+  }
+}
+
+// CONTAINER
+@mixin container {
+  box-sizing: border-box;
+  max-width: 1200px;
+  padding-left: 60px;
+  padding-right: 60px;
+  margin-left: auto;
+  margin-right: auto;
+  @include screen(notebook-s) {
+    padding-left: 40px;
+    padding-right: 40px;
+  }
+  @include screen(mobile) {
+    padding-left: 24px;
+    padding-right: 24px;
+  }
+}
+
+@mixin container-2 {
+  margin-left: 40px;
+  margin-right: 40px;
+  @include screen(tablet) {
+    margin-left: 30px;
+    margin-right: 30px;
+  }
+  @include screen(mobile) {
+    margin-left: 24px;
+    margin-right: 24px;
+  }
+}
+
+// ALIGN-DIV
+@mixin align-div {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+@mixin responsive($tela) {
+  @media (max-width: $tela) {
+    @content;
+  }
+}
+
+// ESPAÇAMENTOS
+$spacing-1: px-rem(80px);
+$spacing-2: px-rem(60px);
+$spacing-3: px-rem(28px);
+$spacing-4: px-rem(12px);
+
+// primeira media-query (notebook-s)
+$spacing-1-2: px-rem(70px);
+$spacing-2-2: px-rem(40px);
+$spacing-3-2: px-rem(20px);
+
+$s1: px-rem(12px);
+$s2: px-rem(16px);
+$s3: px-rem(20px);
+$s4: px-rem(30px);
+$s5: px-rem(40px);
+$s6: px-rem(60px);
+$s7: px-rem(70px);
+$s8: px-rem(80px);
+$s9: px-rem(120px);
+$s10: px-rem(160px);
+
+// margin bottom
+@mixin mbottom-1 {
+  margin-bottom: $s1;
+}
+@mixin mbottom-2 {
+  margin-bottom: $s2;
+}
+@mixin mbottom-3 {
+  margin-bottom: $s3;
+}
+@mixin mbottom-4 {
+  margin-bottom: $s4;
+}
+@mixin mbottom-5 {
+  margin-bottom: $s5;
+}
+@mixin mbottom-6 {
+  margin-bottom: $s6;
+}
+@mixin mbottom-7 {
+  margin-bottom: $s7;
+}
+@mixin mbottom-8 {
+  margin-bottom: $s8;
+}
+@mixin mbottom-9 {
+  margin-bottom: $s9;
+}
+@mixin mbottom-10 {
+  margin-bottom: $s10;
+}
+
+// margin-top
+@mixin mtop-1 {
+  margin-top: $s1;
+}
+@mixin mtop-2 {
+  margin-top: $s2;
+}
+@mixin mtop-3 {
+  margin-top: $s3;
+}
+@mixin mtop-4 {
+  margin-top: $s4;
+}
+@mixin mtop-5 {
+  margin-top: $s5;
+}
+@mixin mtop-6 {
+  margin-top: $s6;
+}
+@mixin mtop-7 {
+  margin-top: $s7;
+}
+@mixin mtop-8 {
+  margin-top: $s8;
+}
+@mixin mtop-9 {
+  margin-top: $s9;
+}
+@mixin mtop-10 {
+  margin-top: $s10;
+}
+
+// padding bottom
+@mixin pbottom-1 {
+  padding-bottom: $spacing-1;
+}
+@mixin pbottom-1 {
+  padding-bottom: $s1;
+}
+@mixin pbottom-2 {
+  padding-bottom: $s2;
+}
+@mixin pbottom-3 {
+  padding-bottom: $s3;
+}
+@mixin pbottom-4 {
+  padding-bottom: $s4;
+}
+@mixin pbottom-5 {
+  padding-bottom: $s5;
+}
+@mixin pbottom-6 {
+  padding-bottom: $s6;
+}
+@mixin pbottom-7 {
+  padding-bottom: $s7;
+}
+@mixin pbottom-8 {
+  padding-bottom: $s8;
+}
+@mixin pbottom-9 {
+  padding-bottom: $s9;
+}
+@mixin pbottom-10 {
+  padding-bottom: $s10;
+}
+
+// padding-top
+@mixin ptop-1 {
+  padding-top: $s1;
+}
+@mixin ptop-2 {
+  padding-top: $s2;
+}
+@mixin ptop-3 {
+  padding-top: $s3;
+}
+@mixin ptop-4 {
+  padding-top: $s4;
+}
+@mixin ptop-5 {
+  padding-top: $s5;
+}
+@mixin ptop-6 {
+  padding-top: $s6;
+}
+@mixin ptop-7 {
+  padding-top: $s7;
+}
+@mixin ptop-8 {
+  padding-top: $s8;
+}
+@mixin ptop-9 {
+  padding-top: $s9;
+}
+@mixin ptop-10 {
+  padding-top: $s10;
+}

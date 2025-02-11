@@ -1,0 +1,24 @@
+// Reset / definições iniciais
+@import "./geral/cores";
+@import "./geral/mixins";
+@import "./geral/global";
+@import "./geral/tipografias";
+
+// Seções gerais
+@import "./geral/header";
+@import "./geral/footer";
+@import "./geral/contato";
+
+// Página inicial
+@import "./inicio/introducao";
+@import "./inicio/sobre";
+@import "./inicio/conteudos";
+
+// Sobre
+@import "./sobre/conteudo";
+
+// Conteúdos
+@import "./conteudos/conteudo";
+
+// Artigo
+@import "./artigo/artigo";
