@@ -3,11 +3,25 @@
     <div class="header-bg">
       <componente-header></componente-header>
     </div>
+
+    <article v-if="artigo" class="artigo">
+      <router-link class="artigo-voltar" to="/conteudos"
+        ><img
+          src="@/assets/img/geral/seta-esquerda.svg"
+          alt="Seta para esquerda"
+        />Voltar</router-link
+      >
+      <h1>{{ artigo.titulo }}</h1>
+      <div class="artigo-conteudo" v-html="artigo.conteudo"></div>
+    </article>
+
     <componente-footer class="w2"></componente-footer>
   </div>
 </template>
 
 <script>
+import { api } from "@/axios/index.js";
+
 import ComponenteFooter from "@/components/ComponenteFooter.vue";
 import ComponenteHeader from "@/components/ComponenteHeader.vue";
 
@@ -16,6 +30,22 @@ export default {
   components: {
     ComponenteHeader,
     ComponenteFooter,
+  },
+  props: ["artigoId"],
+  data() {
+    return {
+      artigo: null,
+    };
+  },
+  methods: {
+    getArtigo() {
+      api.get(`/artigos/${this.artigoId}`).then((response) => {
+        this.artigo = response.data;
+      });
+    },
+  },
+  created() {
+    this.getArtigo();
   },
 };
 </script>

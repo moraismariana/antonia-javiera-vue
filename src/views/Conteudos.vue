@@ -4,73 +4,25 @@
       <componente-header></componente-header>
     </div>
 
+    <router-view></router-view>
+
     <section class="conteudos-conteudo">
       <h1>Artigos, projetos e conteúdos</h1>
-      <div class="conteudos-artigos">
-        <router-link to="/artigo" class="conteudos-artigos-item">
+      <div v-if="artigos" class="conteudos-artigos">
+        <router-link
+          v-for="artigo in artigos"
+          :key="artigo.id"
+          :to="{ name: 'Artigo', params: { artigoId: artigo.id } }"
+          class="conteudos-artigos-item"
+        >
           <div>
-            <h4>Apostilas para estudantes</h4>
+            <h4>{{ artigo.titulo }}</h4>
             <img
               src="@/assets/img/geral/seta-direita.svg"
               alt="Seta para a direita"
             />
           </div>
-          <p>
-            Confira aqui os materiais elaborados para os estudantes. Livros e
-            apostilas sobre literatura e espanhol.
-          </p>
-        </router-link>
-        <router-link to="/artigo" class="conteudos-artigos-item">
-          <div>
-            <h4>Apostilas para estudantes</h4>
-            <img
-              src="@/assets/img/geral/seta-direita.svg"
-              alt="Seta para a direita"
-            />
-          </div>
-          <p>
-            Confira aqui os materiais elaborados para os estudantes. Livros e
-            apostilas sobre literatura e espanhol.
-          </p>
-        </router-link>
-        <router-link to="/artigo" class="conteudos-artigos-item">
-          <div>
-            <h4>Apostilas para estudantes</h4>
-            <img
-              src="@/assets/img/geral/seta-direita.svg"
-              alt="Seta para a direita"
-            />
-          </div>
-          <p>
-            Confira aqui os materiais elaborados para os estudantes. Livros e
-            apostilas sobre literatura e espanhol.
-          </p>
-        </router-link>
-        <router-link to="/artigo" class="conteudos-artigos-item">
-          <div>
-            <h4>Apostilas para estudantes</h4>
-            <img
-              src="@/assets/img/geral/seta-direita.svg"
-              alt="Seta para a direita"
-            />
-          </div>
-          <p>
-            Confira aqui os materiais elaborados para os estudantes. Livros e
-            apostilas sobre literatura e espanhol.
-          </p>
-        </router-link>
-        <router-link to="/artigo" class="conteudos-artigos-item">
-          <div>
-            <h4>Apostilas para estudantes</h4>
-            <img
-              src="@/assets/img/geral/seta-direita.svg"
-              alt="Seta para a direita"
-            />
-          </div>
-          <p>
-            Confira aqui os materiais elaborados para os estudantes. Livros e
-            apostilas sobre literatura e espanhol.
-          </p>
+          <p>{{ artigo.descricao }}</p>
         </router-link>
       </div>
     </section>
@@ -80,6 +32,8 @@
 </template>
 
 <script>
+import { api } from "@/axios/index.js";
+
 import ComponenteFooter from "@/components/ComponenteFooter.vue";
 import ComponenteHeader from "@/components/ComponenteHeader.vue";
 
@@ -88,6 +42,19 @@ export default {
   components: {
     ComponenteHeader,
     ComponenteFooter,
+  },
+  data() {
+    return {
+      artigos: null,
+    };
+  },
+  methods: {
+    getArtigos() {
+      api.get("/artigos/").then((response) => (this.artigos = response.data));
+    },
+  },
+  created() {
+    this.getArtigos();
   },
 };
 </script>

@@ -25,9 +25,10 @@ const routes = [
     component: Conteudos,
   },
   {
-    path: "/artigo",
+    path: "/artigo/:artigoId",
     name: "Artigo",
     component: Artigo,
+    props: true,
   },
   {
     path: "/contato",
