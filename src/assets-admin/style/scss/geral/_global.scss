@@ -1,0 +1,90 @@
+html {
+  scroll-behavior: smooth;
+}
+:target {
+  scroll-margin-top: 7rem;
+}
+
+body {
+  margin: 0px;
+  font-family: "Urbanist", Arial, Helvetica, sans-serif;
+  background-color: $w2;
+  color: $c2;
+}
+
+body.not-logged::after {
+  content: "";
+  background-color: $w2;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+h1,
+h2,
+h3,
+h4,
+ul,
+p,
+blockquote,
+dd {
+  margin: 0px;
+}
+
+ul {
+  padding: 0px;
+  list-style: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+  display: inline-block;
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/* container */
+.container {
+  box-sizing: border-box;
+  max-width: 1200px;
+  padding: 0 20px;
+  @include screen(notebook-m) {
+    padding: 0 60px;
+  }
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.form-alert {
+  font-size: 1em;
+  color: $c-alert;
+  text-align: end;
+  margin-top: $s4;
+}
+
+.form-alert-2 {
+  font-size: 1em;
+  color: $c3;
+  text-align: end;
+  margin-top: $s4;
+}
+
+.cardapio-aviso {
+  @include text-2;
+  @include align-div;
+  display: flex;
+  flex-direction: column;
+  gap: $s1;
+  text-align: center;
+  max-width: 39ch;
+  display: none;
+  &.ativo {
+    display: flex;
+  }
+}

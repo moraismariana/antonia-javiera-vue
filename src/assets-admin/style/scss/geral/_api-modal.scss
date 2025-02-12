@@ -1,0 +1,125 @@
+// FORMUÁRIO API (CREATE, UPDATE, DELETE)
+.api-modal-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  z-index: 2;
+  background-color: rgba(0, 0, 0, 0.6);
+  display: none;
+  // justify-content: center;
+  // align-items: center;
+  &.ativo {
+    display: block;
+  }
+}
+
+.api-modal {
+  position: fixed;
+  bottom: -50svh;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+  box-sizing: border-box;
+  background-color: $w2;
+  width: 400px;
+  padding: $s6;
+  @include border;
+  position: relative;
+  @include screen(mobile) {
+    padding: $s6 $s5;
+    max-width: 90%;
+  }
+  h2 {
+    text-align: center;
+    @include title-2;
+    color: $c1;
+    margin-bottom: $s4;
+  }
+  p {
+    @include text-2;
+  }
+  label {
+    color: $c2;
+    display: block;
+    @include text-1;
+    margin-left: $s4;
+    margin-bottom: $s2;
+    margin-top: $s4;
+    font-weight: 500;
+  }
+  input,
+  textarea {
+    background-color: $w2;
+    font-size: px-rem(14px);
+    font-family: Arial, Helvetica, sans-serif;
+    border: 2px solid $w4;
+    border-radius: 50px;
+    padding: $s1 + px-rem(2px) $s4;
+    width: 100%;
+    box-sizing: border-box;
+    outline: none;
+    resize: none;
+    &:focus {
+      border: 2px solid $c2;
+    }
+    &::-webkit-scrollbar {
+      display: none;
+    }
+  }
+  .cancel-button {
+    @include button;
+  }
+  .send-button {
+    @include button-2;
+  }
+  .api-buttons {
+    justify-content: end;
+    display: flex;
+    gap: $s2;
+    width: 100%;
+    margin-top: $s4;
+  }
+  .form-flex-inputs {
+    display: flex;
+    gap: $s2;
+    flex-basis: 0;
+    & > div:nth-of-type(1) {
+      flex-basis: 0;
+      flex-grow: 1;
+    }
+    & > div:nth-of-type(2) {
+      flex-basis: 0;
+      flex-grow: 1;
+    }
+    .imagem-input {
+      padding: 0;
+      height: 40px;
+      @include shadow;
+      padding: 0;
+      display: block;
+      border: none;
+      &::file-selector-button {
+        @include text-2;
+        font-size: px-rem(16px);
+        position: relative;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 100%;
+        height: 100%;
+        outline: none;
+        border: none;
+        background-color: $w1;
+        transition: 0.4s;
+      }
+      &.has-file {
+        box-shadow: none;
+        &::file-selector-button {
+          box-shadow: none;
+          color: $w1;
+          background-color: $c3;
+        }
+      }
+    }
+  }
+}

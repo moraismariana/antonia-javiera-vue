@@ -96,9 +96,13 @@ export default {
         }
         if (response.data.next) {
           this.apiNext = response.data.next;
+        } else {
+          this.apiNext = null;
         }
         if (response.data.previous) {
           this.apiPrevious = response.data.previous;
+        } else {
+          this.apiPrevious = null;
         }
         if (response.data.count) {
           this.apiCount = response.data.count;
