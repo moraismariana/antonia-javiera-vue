@@ -58,6 +58,7 @@
         <p>Total de artigos: {{ apiCount }}</p>
       </section>
     </div>
+
     <footer class="admin-footer">
       <p>Desenvolvido por Mariana Morais © 2024.</p>
     </footer>
