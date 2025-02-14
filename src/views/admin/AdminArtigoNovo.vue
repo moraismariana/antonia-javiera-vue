@@ -1,6 +1,14 @@
 <template>
-  <div>
-    <form class="container" autocomplete="off">
+  <div id="admin-artigo">
+    <header class="admin-header">
+      <router-link :to="{ name: 'AdminConteudos' }">
+        <img src="@/assets-admin/img/left-arrow.svg" alt="Voltar" />
+        <p>Artigos</p>
+      </router-link>
+      <img src="@/assets-admin/img/logo.svg" alt="Logo Mariana Morais" />
+    </header>
+
+    <form class="admin-artigo-conteudo" autocomplete="off">
       <h1>Novo Artigo</h1>
       <div>
         <label for="titulo">Título do artigo</label>
@@ -19,31 +27,45 @@
           id="descricao"
           v-model="artigo.descricao"
           required
+          rows="1"
         ></textarea>
-      </div>
-      <div>
-        <label for="fixado">Fixado</label>
-        <input
-          type="checkbox"
-          id="fixado"
-          name="fixado"
-          v-model="artigo.fixado"
-        />
       </div>
 
       <div class="quill-editor">
+        <label for="editor"> Conteúdo</label>
         <quill-editor
+          id="editor"
           v-model="artigo.conteudo"
           :options="quillOptions"
         ></quill-editor>
       </div>
 
-      <button @click.prevent="enviarArtigo">Enviar</button>
+      <div class="admin-artigo-fim">
+        <div class="admin-artigo-fixado">
+          <label class="container-checkbox" for="fixado">
+            <p>Fixado</p>
+            <input
+              type="checkbox"
+              id="fixado"
+              name="fixado"
+              v-model="artigo.fixado"
+            />
+            <span class="checkmark"></span>
+          </label>
+        </div>
+
+        <button @click.prevent="enviarArtigo">Enviar</button>
+      </div>
     </form>
+
+    <footer class="admin-footer">
+      <p>Desenvolvido por Mariana Morais © 2024.</p>
+    </footer>
   </div>
 </template>
 
 <script>
+import "@/assets-admin/style/scss/style.scss";
 import { quillEditor } from "vue-quill-editor";
 import "quill/dist/quill.snow.css";
 import { api } from "@/axios";
@@ -85,10 +107,6 @@ export default {
 };
 </script>
 
-<style>
-.quill-editor {
-  max-width: 1000px;
-  height: 400px;
-  margin-bottom: 50px;
-}
+<style lang="scss" scoped>
+@import "@/assets-admin/style/scss/style.scss";
 </style>

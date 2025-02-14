@@ -63,15 +63,14 @@
 
         <div class="admin-paginacao">
           <p>Total de artigos: {{ apiCount }}</p>
-
           <div>
-            <div @click.prevent="alterarPagina(apiPrevious)">
+            <div v-if="apiPrevious" @click.prevent="alterarPagina(apiPrevious)">
               <img
                 src="@/assets-admin/img/left-arrow.svg"
                 alt="Seta para a esquerda"
               />
             </div>
-            <div @click.prevent="alterarPagina(apiNext)">
+            <div v-if="apiNext" @click.prevent="alterarPagina(apiNext)">
               <p>Próxima página</p>
               <img
                 src="@/assets-admin/img/right-arrow-dark.svg"
@@ -80,111 +79,12 @@
             </div>
           </div>
         </div>
-
-        <!-- <div v-if="apiPrevious">
-          <button @click.prevent="alterarPagina(apiPrevious)">
-            Página anterior
-          </button>
-        </div>
-        <div v-if="apiNext">
-          <button @click.prevent="alterarPagina(apiNext)">
-            Próxima página
-          </button>
-        </div>
-        <p>Total de artigos: {{ apiCount }}</p> -->
       </section>
     </div>
 
     <footer class="admin-footer">
       <p>Desenvolvido por Mariana Morais © 2024.</p>
     </footer>
-
-    <section
-      class="api-modal-container"
-      data-modal="container"
-      data-modal-type="create-categoria"
-    >
-      <div class="api-modal">
-        <h2>Nova categoria</h2>
-        <form id="create-categoria" action="">
-          <label for="create-categoria-nome">Nome</label>
-          <input
-            type="text"
-            for="create-categoria-nome"
-            id="create-categoria-nome"
-            name="create-categoria-nome"
-            required
-          />
-          <p class="form-alert"></p>
-          <div class="api-buttons">
-            <button
-              data-modal="fechar"
-              data-modal-type="create-categoria"
-              class="cancel-button"
-              type="button"
-            >
-              Cancelar
-            </button>
-            <button class="send-button" type="submit">Criar</button>
-          </div>
-        </form>
-      </div>
-    </section>
-
-    <section
-      class="api-modal-container"
-      data-modal="container"
-      data-modal-type="update-categoria"
-    >
-      <div class="api-modal">
-        <h2>Editar categoria</h2>
-        <form id="update-categoria" action="">
-          <label for="update-categoria-nome">Nome</label>
-          <input
-            type="text"
-            for="update-categoria-nome"
-            id="update-categoria-nome"
-            required
-          />
-          <p class="form-alert"></p>
-          <div class="api-buttons">
-            <button
-              data-modal="fechar"
-              data-modal-type="update-categoria"
-              class="cancel-button"
-              type="button"
-            >
-              Cancelar
-            </button>
-            <button class="send-button" type="submit">Salvar</button>
-          </div>
-        </form>
-      </div>
-    </section>
-
-    <section
-      class="api-modal-container"
-      data-modal="container"
-      data-modal-type="delete-categoria"
-    >
-      <div class="api-modal">
-        <h2>Excluir categoria?</h2>
-        <p>Essa ação irá deletar todos os pratos dessa categoria.</p>
-        <form id="delete-categoria" action="">
-          <div class="api-buttons">
-            <button
-              data-modal="fechar"
-              data-modal-type="delete-categoria"
-              class="cancel-button"
-              type="button"
-            >
-              Cancelar
-            </button>
-            <button class="send-button" type="submit">Excluir</button>
-          </div>
-        </form>
-      </div>
-    </section>
   </div>
 </template>
 
@@ -218,14 +118,19 @@ export default {
   methods: {
     getArtigos() {
       api.get(`/artigos/${this.url}`).then((response) => {
+        console.log(response);
         if (response.data.results) {
           this.artigos = response.data.results;
         }
         if (response.data.next) {
           this.apiNext = response.data.next;
+        } else {
+          this.apiNext = null;
         }
         if (response.data.previous) {
           this.apiPrevious = response.data.previous;
+        } else {
+          this.apiPrevious = null;
         }
         if (response.data.count) {
           this.apiCount = response.data.count;
