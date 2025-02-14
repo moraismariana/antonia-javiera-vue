@@ -31,16 +31,18 @@
 
 @mixin title-3 {
   font-family: "Raleway";
+  font-size: px-rem(35px);
+  font-weight: 400;
+  text-transform: uppercase;
+  line-height: 1em;
+}
+
+@mixin title-4 {
+  font-family: "Raleway";
   font-size: px-rem(30px);
   font-weight: 400;
   text-transform: uppercase;
   line-height: 1em;
-  // @include screen(notebook-s) {
-  //   font-size: px-rem(50px);
-  // }
-  // @include screen(mobile) {
-  //   font-size: px-rem(46px);
-  // }
 }
 
 @mixin subtitle-1 {
