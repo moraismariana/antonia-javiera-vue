@@ -7,7 +7,7 @@
     <article v-if="artigo" class="artigo">
       <router-link class="artigo-voltar" to="/conteudos"
         ><img
-          src="@/assets/img/geral/seta-esquerda.svg"
+          src="@/assets/img/geral/seta-esquerda-claro.svg"
           alt="Seta para esquerda"
         />Voltar</router-link
       >

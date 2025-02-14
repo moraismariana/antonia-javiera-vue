@@ -1,12 +1,14 @@
 <template>
-  <form>
+  <form class="conteudos-busca">
     <input name="busca" id="busca" type="text" v-model="busca" />
-    <input
+    <button
       type="submit"
       id="lupa"
       value="Buscar"
       @click.prevent="buscarProdutos"
-    />
+    >
+      <img src="@/assets/img/geral/lupa.svg" alt="Buscar" />
+    </button>
   </form>
 </template>
 

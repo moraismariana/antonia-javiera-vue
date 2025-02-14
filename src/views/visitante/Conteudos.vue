@@ -17,7 +17,13 @@
           class="conteudos-artigos-item"
         >
           <div>
-            <h4>{{ artigo.titulo }}</h4>
+            <h4>
+              <img
+                v-if="artigo.fixado"
+                src="@/assets/img/geral/pin.svg"
+                alt="Artigo fixado"
+              />{{ artigo.titulo }}
+            </h4>
             <img
               src="@/assets/img/geral/seta-direita.svg"
               alt="Seta para a direita"
@@ -26,15 +32,26 @@
           <p>{{ artigo.descricao }}</p>
         </router-link>
       </div>
-      <div v-if="apiPrevious">
-        <button @click.prevent="alterarPagina(apiPrevious)">
-          Página anterior
-        </button>
+
+      <div class="conteudos-paginacao">
+        <p>Total de artigos: {{ apiCount }}</p>
+        <div>
+          <div v-if="apiPrevious" @click.prevent="alterarPagina(apiPrevious)">
+            <img
+              src="@/assets/img/geral/seta-esquerda-claro.svg"
+              alt="Seta para a esquerda"
+            />
+            <p>Página anterior</p>
+          </div>
+          <div v-if="apiNext" @click.prevent="alterarPagina(apiNext)">
+            <p>Próxima página</p>
+            <img
+              src="@/assets/img/geral/seta-direita-claro.svg"
+              alt="Seta para a direita"
+            />
+          </div>
+        </div>
       </div>
-      <div v-if="apiNext">
-        <button @click.prevent="alterarPagina(apiNext)">Próxima página</button>
-      </div>
-      <p>Total de artigos: {{ apiCount }}</p>
     </section>
 
     <componente-footer class="w2"></componente-footer>

@@ -89,6 +89,9 @@
   display: block;
   max-width: fit-content;
   transition: 0.28s;
+  background: none;
+  cursor: pointer;
+  color: $c1;
   &:hover {
     transform: translateX($s1);
   }

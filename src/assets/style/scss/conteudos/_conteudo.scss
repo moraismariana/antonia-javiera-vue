@@ -2,8 +2,46 @@
   @include container;
   h1 {
     @include mtop-7;
-    @include mbottom-7;
+    @include mbottom-6;
     @include title-2;
+  }
+}
+
+.conteudos-busca {
+  display: flex;
+  @include mbottom-6;
+  #busca {
+    flex: 1;
+    background: none;
+    border: none;
+    outline: none;
+    border: 1px solid $c3;
+    padding: 7px $s3;
+    @include text-2;
+    color: $c2;
+    &:focus {
+      border: 1px solid $c1;
+    }
+    @include screen(notebook-s) {
+      padding: 5px $s3;
+    }
+  }
+  #lupa {
+    background: none;
+    outline: none;
+    border: none;
+    border-top: 1px solid $c3;
+    border-right: 1px solid $c3;
+    border-bottom: 1px solid $c3;
+    width: 80px;
+    cursor: pointer;
+    transition: 0.28s;
+    img {
+      @include align-div;
+    }
+    &:hover {
+      background-color: $w2;
+    }
   }
 }
 
@@ -24,6 +62,12 @@
     h4 {
       @include subtitle-1;
       color: $c2;
+      display: flex;
+      gap: $s3;
+      & > img {
+        display: block;
+        animation: none !important;
+      }
     }
     img {
       display: none;
@@ -59,7 +103,31 @@
 }
 
 .conteudos-artigos {
-  @include mbottom-7;
+  @include mbottom-6;
+}
+
+.conteudos-paginacao {
+  @include mbottom-6;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @include text-2;
+  color: $c2;
+  & > div {
+    display: flex;
+    gap: $s4;
+    & > div {
+      display: flex;
+      gap: $s2;
+      color: $c2;
+      @include link-text;
+      cursor: pointer;
+      transition: 0.15s;
+      &:hover {
+        color: $c3;
+      }
+    }
+  }
 }
 
 @keyframes right-to-left {
@@ -104,6 +172,27 @@
       & > div:nth-of-type(1) {
         img {
           animation: none;
+        }
+      }
+    }
+  }
+}
+
+.conteudos-paginacao {
+  @include screen(tablet) {
+    flex-direction: column-reverse;
+    gap: $s3;
+  }
+  @include screen(mobile) {
+    align-items: end;
+    gap: $s5;
+    & > div {
+      flex-direction: column-reverse;
+      gap: $s1;
+      align-items: end;
+      & > div {
+        img {
+          display: none;
         }
       }
     }
