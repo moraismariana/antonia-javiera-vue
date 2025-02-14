@@ -18,22 +18,38 @@
       </router-link>
     </header>
 
-    <div class="cardapio-conteudo" data-list-size data-list-size-tam="3">
+    <div class="cardapio-conteudo">
       <article class="cardapio-intro">
         <h1>Artigos / Blog</h1>
-        <p>Aqui você pode criar, editar ou deletar seus artigos.</p>
       </article>
 
       <section class="cardapio-nav">
-        <componente-busca></componente-busca>
+        <form class="admin-busca">
+          <input size="1" name="busca" id="busca" type="text" v-model="busca" />
+          <button
+            type="submit"
+            id="lupa"
+            value="Buscar"
+            @click.prevent="buscarProdutos"
+          >
+            <img src="@/assets-admin/img/lupa.svg" alt="Buscar" />
+          </button>
+        </form>
 
         <ul v-if="artigos">
           <li v-for="artigo in artigos" :key="artigo.id">
             <router-link
               :to="{ name: 'AdminArtigo', params: { param: artigo.id } }"
             >
-              <p>{{ artigo.titulo }}</p>
-              <p>{{ artigo.descricao }}</p>
+              <div>
+                <p>{{ artigo.titulo }}</p>
+                <p>{{ artigo.descricao }}</p>
+              </div>
+              <img
+                v-if="artigo.fixado"
+                src="@/assets-admin/img/pin.svg"
+                alt="Artigo fixado"
+              />
             </router-link>
           </li>
         </ul>
@@ -45,7 +61,27 @@
           </p>
         </div>
 
-        <div v-if="apiPrevious">
+        <div class="admin-paginacao">
+          <p>Total de artigos: {{ apiCount }}</p>
+
+          <div>
+            <div @click.prevent="alterarPagina(apiPrevious)">
+              <img
+                src="@/assets-admin/img/left-arrow.svg"
+                alt="Seta para a esquerda"
+              />
+            </div>
+            <div @click.prevent="alterarPagina(apiNext)">
+              <p>Próxima página</p>
+              <img
+                src="@/assets-admin/img/right-arrow-dark.svg"
+                alt="Seta para a direita"
+              />
+            </div>
+          </div>
+        </div>
+
+        <!-- <div v-if="apiPrevious">
           <button @click.prevent="alterarPagina(apiPrevious)">
             Página anterior
           </button>
@@ -55,7 +91,7 @@
             Próxima página
           </button>
         </div>
-        <p>Total de artigos: {{ apiCount }}</p>
+        <p>Total de artigos: {{ apiCount }}</p> -->
       </section>
     </div>
 
@@ -167,6 +203,7 @@ export default {
       apiNext: null,
       apiPrevious: null,
       apiCount: null,
+      busca: "",
     };
   },
   computed: {
@@ -214,6 +251,11 @@ export default {
           this.apiCount = response.data.count;
         }
       });
+    },
+    buscarProdutos() {
+      if (this.$route.query.q !== this.busca) {
+        this.$router.push({ query: { q: this.busca } });
+      }
     },
   },
   watch: {

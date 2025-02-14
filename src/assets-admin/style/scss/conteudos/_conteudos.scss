@@ -45,10 +45,10 @@
 
 .cardapio-nav {
   @include container;
-  padding-bottom: $s10 + px-rem(51px);
-  @include screen(tablet) {
-    padding-bottom: $s9 + px-rem(51px);
-  }
+  padding-bottom: $s8 + px-rem(51px);
+  // @include screen(tablet) {
+  //   padding-bottom: $s9 + px-rem(51px);
+  // }
 
   ul {
     display: flex;
@@ -64,16 +64,23 @@
     justify-content: space-between;
     cursor: pointer;
     & > a {
-      display: block;
-      // background-color: azure;
-      @include text-1;
-      padding: $s5 0 $s5 $s6;
-
-      width: 100%;
+      display: flex;
       align-items: center;
+      justify-content: space-between;
+      gap: $s4;
+      @include text-1;
+      padding: $s5 $s6;
+      width: 100%;
+      p:nth-of-type(1) {
+        margin-bottom: $s1;
+        font-weight: 500;
+        color: $c2;
+      }
+      p:nth-of-type(2) {
+        color: $c3;
+      }
     }
     & > div {
-      // box-sizing: border-box;
       min-width: 70px;
       padding: $s5 $s6 $s5 0;
       display: flex;
@@ -109,13 +116,70 @@
   }
 }
 
-// mostrar conteúdo apenas após requisição API concluída
-// #cardapio {
-//   opacity: 0;
-//   &.visible {
-//     animation: fade-in 0.3s forwards;
-//   }
-// }
+.admin-busca {
+  background-color: $w1;
+  margin-bottom: $s7;
+  @include shadow;
+  border-radius: 50px;
+  display: flex;
+  margin-left: $s1;
+  margin-right: $s1;
+  @include screen(tablet) {
+    margin-left: 0;
+    margin-right: 0;
+  }
+  input {
+    flex: 1;
+    @include text-2;
+    color: $c2;
+    outline: none;
+    border: none;
+    background: none;
+    padding: $s2 $s6;
+    width: auto;
+  }
+  button {
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    padding: 0 $s6;
+    img {
+      min-width: 24px;
+    }
+    @include screen(mobile) {
+      padding: 0 $s6 0 $s2;
+    }
+  }
+}
+
+.admin-paginacao {
+  margin-top: $s8;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  & > p {
+    @include text-2;
+    color: $c3;
+  }
+  & > div {
+    display: flex;
+    gap: $s4;
+    & > div {
+      display: flex;
+      gap: $s4;
+      @include button;
+      @include screen(tablet) {
+        p {
+          display: none;
+        }
+      }
+    }
+    @include screen(tablet) {
+      gap: $s2;
+    }
+  }
+}
 
 @keyframes fade-in {
   from {
