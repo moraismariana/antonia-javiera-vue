@@ -14,6 +14,9 @@ export const api = {
   put(endpoint, body) {
     return axiosInstance.put(endpoint, body);
   },
+  patch(endpoint, body) {
+    return axiosInstance.patch(endpoint, body);
+  },
   delete(endpoint) {
     return axiosInstance.delete(endpoint);
   },

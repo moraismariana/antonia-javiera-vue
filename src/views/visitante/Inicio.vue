@@ -4,29 +4,29 @@
       <componente-header></componente-header>
 
       <article class="inicio-introducao">
-        <h1 v-html="inicioTextosCMS.introducao_titulo"></h1>
-        <p v-html="inicioTextosCMS.introducao_subtitulo"></p>
+        <h1 v-html="pagInicio.textos.introducaoTitulo"></h1>
+        <p v-html="pagInicio.textos.introducaoSubtitulo"></p>
       </article>
     </div>
 
     <div class="inicio-sobre-bg">
       <section class="inicio-sobre">
         <div>
-          <h2 v-html="inicioTextosCMS.sobre_titulo"></h2>
+          <h2 v-html="pagInicio.textos.sobreTitulo"></h2>
           <div class="img-container img-mobile">
             <img
-              src="@/assets/img/inicio/Antonia-Javiera.webp"
+              :src="pagInicio.imagens.imagem1"
               alt="Imagem da professora Antonia sorrindo."
               width="582"
               height="529"
             />
           </div>
-          <p v-html="inicioTextosCMS.sobre_descricao"></p>
+          <p v-html="pagInicio.textos.sobreDescricao"></p>
           <router-link to="/sobre">Saiba mais</router-link>
         </div>
         <div class="img-container">
           <img
-            src="@/assets/img/inicio/Antonia-Javiera.webp"
+            :src="pagInicio.imagens.imagem1"
             alt="Imagem da professora Antonia sorrindo."
             width="582"
             height="529"
@@ -38,8 +38,8 @@
     <div class="inicio-conteudos-bg">
       <section class="inicio-conteudos">
         <div>
-          <h2 v-html="componenteArtigosTextoCMS.artigos_titulo"></h2>
-          <p v-html="componenteArtigosTextoCMS.artigos_descricao"></p>
+          <h2 v-html="pagInicio.textos.artigosTitulo"></h2>
+          <p v-html="pagInicio.textos.artigosDescricao"></p>
           <router-link to="/conteudos"
             >Conferir<img
               src="@/assets/img/geral/seta-direita.svg"
@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import { api } from "@/axios/index.js";
+import { mapState, mapActions } from "vuex";
 
 import ComponenteContato from "@/components/ComponenteContato.vue";
 import ComponenteFooter from "@/components/ComponenteFooter.vue";
@@ -69,45 +69,14 @@ export default {
     ComponenteContato,
     ComponenteFooter,
   },
-  data() {
-    return {
-      inicioTextosCMS: {
-        introducao_titulo: "",
-        introducao_subtitulo: "",
-        sobre_titulo: "",
-        sobre_descricao: "",
-      },
-      componenteArtigosTextoCMS: {
-        artigos_titulo: "",
-        artigos_descricao: "",
-      },
-    };
+  computed: {
+    ...mapState(["pagInicio"]),
   },
   methods: {
-    getConteudosCMS() {
-      // FALTA FAZER O CATCH
-      api.get("/iniciotexto/1/").then((response) => {
-        if (response.status === 200) {
-          this.inicioTextosCMS.introducao_titulo =
-            response.data.introducao_titulo;
-          this.inicioTextosCMS.introducao_subtitulo =
-            response.data.introducao_subtitulo;
-          this.inicioTextosCMS.sobre_titulo = response.data.sobre_titulo;
-          this.inicioTextosCMS.sobre_descricao = response.data.sobre_descricao;
-        }
-      });
-      api.get("/componenteartigostexto/1/").then((response) => {
-        if (response.status === 200) {
-          this.componenteArtigosTextoCMS.artigos_titulo =
-            response.data.artigos_titulo;
-          this.componenteArtigosTextoCMS.artigos_descricao =
-            response.data.artigos_descricao;
-        }
-      });
-    },
+    ...mapActions(["getPagInicio"]),
   },
   created() {
-    this.getConteudosCMS();
+    this.getPagInicio();
   },
 };
 </script>

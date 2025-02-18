@@ -1,10 +1,33 @@
 <template>
   <div>
-    <section class="contato">
-      <h2 v-html="componenteContatoTextoCMS.contato_titulo"></h2>
+    <section v-if="!cms" class="contato">
+      <h2 v-html="compContato.textos.contatoTitulo"></h2>
       <div>
-        <p v-html="componenteContatoTextoCMS.contato_descricao"></p>
-        <p></p>
+        <p v-html="compContato.textos.contatoDescricao"></p>
+        <router-link to="/contato"
+          >Email
+          <img
+            src="@/assets/img/geral/seta-direita.svg"
+            alt="Seta para a direita"
+        /></router-link>
+      </div>
+    </section>
+    <section v-else class="contato">
+      <h2>
+        <textarea
+          v-model="compContato.textos.contatoTitulo"
+          rows="1"
+          required
+        ></textarea>
+      </h2>
+      <div>
+        <p>
+          <textarea
+            v-model="compContato.textos.contatoDescricao"
+            rows="2"
+            required
+          ></textarea>
+        </p>
         <router-link to="/contato"
           >Email
           <img
@@ -18,31 +41,19 @@
 
 <script>
 import { api } from "@/axios/index.js";
+import { mapState, mapActions } from "vuex";
 
 export default {
   name: "ComponenteContato",
-  data() {
-    return {
-      componenteContatoTextoCMS: {
-        contato_titulo: "",
-        contato_descricao: "",
-      },
-    };
+  props: ["cms"],
+  computed: {
+    ...mapState(["compContato"]),
   },
   methods: {
-    getConteudosCMS() {
-      api.get("/componentecontatotexto/1/").then((response) => {
-        if (response.status === 200) {
-          this.componenteContatoTextoCMS.contato_titulo =
-            response.data.contato_titulo;
-          this.componenteContatoTextoCMS.contato_descricao =
-            response.data.contato_descricao;
-        }
-      });
-    },
+    ...mapActions(["getCompContato"]),
   },
   created() {
-    this.getConteudosCMS();
+    this.getCompContato();
   },
 };
 </script>
