@@ -62,13 +62,17 @@
             />
           </svg>
         </router-link>
-        <ul>
+        <ul v-if="!cms">
           <li><router-link to="/">Início</router-link></li>
           <li><router-link to="/sobre">Sobre</router-link></li>
           <li>
             <router-link to="/conteudos">Conteúdos</router-link>
           </li>
           <li><router-link to="/contato">Contato</router-link></li>
+        </ul>
+        <ul v-else>
+          <li><router-link :to="{ name: 'InicioCMS' }">Início</router-link></li>
+          <li><router-link :to="{ name: 'SobreCMS' }">Sobre</router-link></li>
         </ul>
         <div class="menu-mobile-icone">
           <button>
@@ -89,13 +93,17 @@
     </header>
 
     <div class="menu-mobile">
-      <ul>
+      <ul v-if="!cms">
         <li><router-link to="/">Início</router-link></li>
         <li><router-link to="/sobre">Sobre</router-link></li>
         <li>
           <router-link to="/conteudos">Conteúdos</router-link>
         </li>
         <li><router-link to="/contato">Contato</router-link></li>
+      </ul>
+      <ul v-else>
+        <li><router-link :to="{ name: 'InicioCMS' }">Início</router-link></li>
+        <li><router-link :to="{ name: 'SobreCMS' }">Sobre</router-link></li>
       </ul>
     </div>
   </div>
@@ -104,6 +112,7 @@
 <script>
 export default {
   name: "ComponenteHeader",
+  props: ["cms"],
 };
 </script>
 

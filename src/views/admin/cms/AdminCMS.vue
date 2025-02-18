@@ -1,5 +1,5 @@
 <template>
-  <div id="cms">
+  <div>
     <header class="cms-header">
       <div class="cms-header-content">
         <div>
@@ -14,6 +14,7 @@
         <button>Salvar página</button>
       </div>
     </header>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -23,6 +24,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-@import "@/assets-admin/style/scss/style.scss";
-</style>
+<style></style>
