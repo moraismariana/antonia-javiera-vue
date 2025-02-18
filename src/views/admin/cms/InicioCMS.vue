@@ -11,11 +11,17 @@
           </router-link>
           <p>Você está no modo de edição de conteúdo.</p>
         </div>
-        <button @click.prevent="enviarTodosOsDados">Salvar página</button>
+        <button @click.prevent="enviarDadosParaAPI">Salvar página</button>
       </div>
     </header>
 
-    <div class="inicio-introducao-bg">
+    <div class="inicio-introducao-bg" data-bg="1">
+      <input
+        type="file"
+        data-bg-input="1"
+        accept="image/png, image/jpeg, image/webp"
+        style="display: none"
+      />
       <componente-header :cms="true"></componente-header>
 
       <article class="inicio-introducao">
@@ -48,7 +54,7 @@
           </h2>
           <div class="img-container img-mobile">
             <img
-              src="@/assets/img/inicio/Antonia-Javiera.webp"
+              :src="pagInicio.imagens.imagem1"
               alt="Imagem da professora Antonia sorrindo."
               width="582"
               height="529"
@@ -72,7 +78,7 @@
         </div>
         <div class="img-container">
           <img
-            src="@/assets/img/inicio/Antonia-Javiera.webp"
+            :src="pagInicio.imagens.imagem1"
             alt="Imagem da professora Antonia sorrindo."
             width="582"
             height="529"
@@ -82,7 +88,13 @@
       </section>
     </div>
 
-    <div class="inicio-conteudos-bg">
+    <div class="inicio-conteudos-bg" data-bg="2">
+      <input
+        type="file"
+        data-bg-input="2"
+        accept="image/png, image/jpeg, image/webp"
+        style="display: none"
+      />
       <section class="inicio-conteudos">
         <div>
           <h2>
@@ -131,7 +143,7 @@ export default {
   },
   data() {
     return {
-      novasImgs: {},
+      novasImgs: new FormData(),
     };
   },
   computed: {
@@ -140,8 +152,7 @@ export default {
   methods: {
     ...mapActions(["getPagInicio"]),
 
-    atualizarImagens() {
-      const qtdeImagens = 1;
+    atualizarImagens(qtdeImagens) {
       for (let i = 1; i <= qtdeImagens; i++) {
         const imagens = document.querySelectorAll(`[data-imagem="${i}"]`);
         const imgInput = document.querySelector(`[data-imagem-input="${i}"]`);
@@ -179,13 +190,19 @@ export default {
 
                   ctx.drawImage(img, -offsetX, -offsetY, newWidth, newHeight);
 
-                  imagem.src = canvas.toDataURL("image/webp");
+                  const urlImagem = canvas.toDataURL("image/webp");
 
-                  this.$set(
-                    this.novasImgs,
-                    `imagem${i}`,
-                    canvas.toDataURL("image/webp")
-                  );
+                  imagem.src = urlImagem;
+
+                  fetch(urlImagem)
+                    .then((response) => response.blob())
+                    .then((blob) => {
+                      this.novasImgs.set(
+                        `imagem${i}`,
+                        blob,
+                        `imagem${i}-${new Date().getTime()}.webp`
+                      );
+                    });
                 };
                 img.src = e.target.result;
               };
@@ -196,7 +213,38 @@ export default {
       }
     },
 
-    enviarTextosParaAPI() {
+    atualizarBackgrounds(qtdeBgs) {
+      for (let i = 1; i <= qtdeBgs; i++) {
+        const bgs = document.querySelectorAll(`[data-bg="${i}"]`);
+        const bgInput = document.querySelector(`[data-bg-input="${i}"]`);
+
+        bgs.forEach((bg) => {
+          console.log(bg);
+          bg.addEventListener("click", (event) => {
+            if (
+              event.target.tagName !== "TEXTAREA" &&
+              event.target.tagName !== "A"
+            ) {
+              bgInput.click();
+              console.log("clicou");
+            }
+          });
+
+          bgInput.addEventListener("change", (event) => {
+            let file = event.target.files[0];
+            if (file) {
+              let reader = new FileReader();
+              reader.onload = (e) => {
+                bg.style.backgroundImage = `url(${e.target.result})`;
+              };
+              reader.readAsDataURL(file);
+            }
+          });
+        });
+      }
+    },
+
+    enviarDadosParaAPI() {
       api.patch("/paginainicio/1/", this.pagInicio.textos).then((response) => {
         console.log(response);
       });
@@ -205,10 +253,13 @@ export default {
         .then((response) => {
           console.log(response);
         });
-    },
 
-    enviarTodosOsDados() {
-      this.enviarTextosParaAPI();
+      if (Array.from(this.novasImgs.entries()).length > 0) {
+        api
+          .patch("/paginainicio/1/", this.novasImgs)
+          .then((response) => console.log(response));
+      }
+
       window.alert("Página atualizada com sucesso!");
     },
   },
@@ -216,7 +267,8 @@ export default {
     this.getPagInicio();
   },
   mounted() {
-    this.atualizarImagens();
+    this.atualizarImagens(1);
+    this.atualizarBackgrounds(2);
   },
 };
 </script>
