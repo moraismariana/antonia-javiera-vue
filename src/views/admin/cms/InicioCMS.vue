@@ -15,7 +15,12 @@
       </div>
     </header>
 
-    <div class="inicio-introducao-bg" data-bg="1">
+    <div
+      class="inicio-introducao-bg"
+      :style="{ backgroundImage: `url(${pagInicio.backgrounds.bg1})` }"
+      @click="armazenarBackground"
+      data-bg="1"
+    >
       <input
         type="file"
         data-bg-input="1"
@@ -59,6 +64,7 @@
               width="582"
               height="529"
               data-imagem="1"
+              @click="armazenarImagem"
             />
             <input
               type="file"
@@ -83,12 +89,18 @@
             width="582"
             height="529"
             data-imagem="1"
+            @click="armazenarImagem"
           />
         </div>
       </section>
     </div>
 
-    <div class="inicio-conteudos-bg" data-bg="2">
+    <div
+      class="inicio-conteudos-bg"
+      :style="{ backgroundImage: `url(${pagInicio.backgrounds.bg2})` }"
+      @click="armazenarBackground"
+      data-bg="2"
+    >
       <input
         type="file"
         data-bg-input="2"
@@ -144,6 +156,7 @@ export default {
   data() {
     return {
       novasImgs: new FormData(),
+      novosBgs: new FormData(),
     };
   },
   computed: {
@@ -152,94 +165,85 @@ export default {
   methods: {
     ...mapActions(["getPagInicio"]),
 
-    atualizarImagens(qtdeImagens) {
-      for (let i = 1; i <= qtdeImagens; i++) {
-        const imagens = document.querySelectorAll(`[data-imagem="${i}"]`);
-        const imgInput = document.querySelector(`[data-imagem-input="${i}"]`);
+    armazenarImagem(event) {
+      const imagem = event.target;
+      const chave = imagem.getAttribute("data-imagem");
+      const imgInput = document.querySelector(`[data-imagem-input="${chave}"]`);
 
-        imagens.forEach((imagem) => {
-          imagem.addEventListener("click", () => {
-            imgInput.click();
-          });
+      imgInput.click();
 
-          imgInput.addEventListener("change", (event) => {
-            let file = event.target.files[0];
-            if (file) {
-              let reader = new FileReader();
-              reader.onload = (e) => {
-                let img = new Image();
-                img.onload = () => {
-                  let canvas = document.createElement("canvas");
-                  let ctx = canvas.getContext("2d");
+      imgInput.addEventListener("change", (event) => {
+        let file = event.target.files[0];
+        if (file) {
+          let reader = new FileReader();
+          reader.onload = (e) => {
+            let img = new Image();
+            img.onload = () => {
+              let canvas = document.createElement("canvas");
+              let ctx = canvas.getContext("2d");
 
-                  let width = parseInt(imagem.getAttribute("width"));
-                  let height = parseInt(imagem.getAttribute("height"));
+              let width = parseInt(imagem.getAttribute("width"));
+              let height = parseInt(imagem.getAttribute("height"));
 
-                  let aspectRatio = Math.max(
-                    width / img.width,
-                    height / img.height
+              let aspectRatio = Math.max(
+                width / img.width,
+                height / img.height
+              );
+
+              let newWidth = img.width * aspectRatio;
+              let newHeight = img.height * aspectRatio;
+              let offsetX = (newWidth - width) / 2;
+              let offsetY = (newHeight - height) / 2;
+
+              canvas.width = width;
+              canvas.height = height;
+
+              ctx.drawImage(img, -offsetX, -offsetY, newWidth, newHeight);
+
+              const urlImagem = canvas.toDataURL("image/webp");
+
+              imagem.src = urlImagem;
+
+              fetch(urlImagem)
+                .then((response) => response.blob())
+                .then((blob) => {
+                  this.novasImgs.set(
+                    `imagem${chave}`,
+                    blob,
+                    `imagem${chave}-${new Date().getTime()}.webp`
                   );
-
-                  let newWidth = img.width * aspectRatio;
-                  let newHeight = img.height * aspectRatio;
-                  let offsetX = (newWidth - width) / 2;
-                  let offsetY = (newHeight - height) / 2;
-
-                  canvas.width = width;
-                  canvas.height = height;
-
-                  ctx.drawImage(img, -offsetX, -offsetY, newWidth, newHeight);
-
-                  const urlImagem = canvas.toDataURL("image/webp");
-
-                  imagem.src = urlImagem;
-
-                  fetch(urlImagem)
-                    .then((response) => response.blob())
-                    .then((blob) => {
-                      this.novasImgs.set(
-                        `imagem${i}`,
-                        blob,
-                        `imagem${i}-${new Date().getTime()}.webp`
-                      );
-                    });
-                };
-                img.src = e.target.result;
-              };
-              reader.readAsDataURL(file);
-            }
-          });
-        });
-      }
+                });
+            };
+            img.src = e.target.result;
+          };
+          reader.readAsDataURL(file);
+        }
+      });
     },
 
-    atualizarBackgrounds(qtdeBgs) {
-      for (let i = 1; i <= qtdeBgs; i++) {
-        const bgs = document.querySelectorAll(`[data-bg="${i}"]`);
-        const bgInput = document.querySelector(`[data-bg-input="${i}"]`);
+    armazenarBackground(event) {
+      if (event.target === event.currentTarget) {
+        const bg = event.target;
+        const chave = bg.getAttribute("data-bg");
+        const bgInput = document.querySelector(`[data-bg-input="${chave}"]`);
 
-        bgs.forEach((bg) => {
-          console.log(bg);
-          bg.addEventListener("click", (event) => {
-            if (
-              event.target.tagName !== "TEXTAREA" &&
-              event.target.tagName !== "A"
-            ) {
-              bgInput.click();
-              console.log("clicou");
-            }
-          });
+        bgInput.click();
 
-          bgInput.addEventListener("change", (event) => {
-            let file = event.target.files[0];
-            if (file) {
-              let reader = new FileReader();
-              reader.onload = (e) => {
-                bg.style.backgroundImage = `url(${e.target.result})`;
-              };
-              reader.readAsDataURL(file);
-            }
-          });
+        bgInput.addEventListener("change", (event) => {
+          let file = event.target.files[0];
+          if (file) {
+            let reader = new FileReader();
+            reader.onload = (e) => {
+              bg.style.backgroundImage = `url(${e.target.result})`;
+              this.pagInicio.backgrounds[`bg${chave}`] = `${e.target.result}`;
+            };
+            reader.readAsDataURL(file);
+            this.novosBgs.set(
+              `bg${chave}`,
+              bgInput.files[0],
+              `bg${chave}-${new Date().getTime()}.webp`
+            );
+          }
         });
       }
     },
@@ -260,15 +264,17 @@ export default {
           .then((response) => console.log(response));
       }
 
+      if (Array.from(this.novosBgs.entries()).length > 0) {
+        api
+          .patch("/paginainicio/1/", this.novosBgs)
+          .then((response) => console.log(response));
+      }
+
       window.alert("Página atualizada com sucesso!");
     },
   },
   created() {
     this.getPagInicio();
-  },
-  mounted() {
-    this.atualizarImagens(1);
-    this.atualizarBackgrounds(2);
   },
 };
 </script>

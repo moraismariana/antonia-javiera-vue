@@ -1,8 +1,6 @@
 <template>
   <div>
-    <div class="header-bg">
-      <componente-header></componente-header>
-    </div>
+    <componente-header :header-bg="true"></componente-header>
 
     <section class="contato-conteudo">
       <h1>Contato</h1>

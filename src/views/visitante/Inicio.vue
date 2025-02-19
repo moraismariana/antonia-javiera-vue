@@ -1,6 +1,9 @@
 <template>
   <div>
-    <div class="inicio-introducao-bg">
+    <div
+      class="inicio-introducao-bg"
+      :style="{ backgroundImage: `url(${pagInicio.backgrounds.bg1})` }"
+    >
       <componente-header></componente-header>
 
       <article class="inicio-introducao">
@@ -35,7 +38,10 @@
       </section>
     </div>
 
-    <div class="inicio-conteudos-bg">
+    <div
+      class="inicio-conteudos-bg"
+      :style="{ backgroundImage: `url(${pagInicio.backgrounds.bg2})` }"
+    >
       <section class="inicio-conteudos">
         <div>
           <h2 v-html="pagInicio.textos.artigosTitulo"></h2>

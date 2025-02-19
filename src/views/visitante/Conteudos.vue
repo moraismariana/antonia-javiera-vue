@@ -1,8 +1,6 @@
 <template>
   <div>
-    <div class="header-bg">
-      <componente-header></componente-header>
-    </div>
+    <componente-header :header-bg="true"></componente-header>
 
     <router-view></router-view>
 

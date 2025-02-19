@@ -19,6 +19,10 @@ export default new Vuex.Store({
       imagens: {
         imagem1: "",
       },
+      backgrounds: {
+        bg1: "",
+        bg2: "",
+      },
     },
     pagSobre: {
       textos: {
@@ -45,6 +49,8 @@ export default new Vuex.Store({
       state.pagInicio.textos.artigosTitulo = payload.textos.artigosTitulo;
       state.pagInicio.textos.artigosDescricao = payload.textos.artigosDescricao;
       state.pagInicio.imagens.imagem1 = payload.imagens.imagem1;
+      state.pagInicio.backgrounds.bg1 = payload.backgrounds.bg1;
+      state.pagInicio.backgrounds.bg2 = payload.backgrounds.bg2;
     },
     MUDAR_COMP_CONTATO(state, payload) {
       state.compContato.textos.contatoTitulo = payload.textos.contatoTitulo;
@@ -68,6 +74,10 @@ export default new Vuex.Store({
             },
             imagens: {
               imagem1: response.data.imagem1,
+            },
+            backgrounds: {
+              bg1: response.data.bg1,
+              bg2: response.data.bg2,
             },
           };
           context.commit("MUDAR_PAG_INICIO", dados);
