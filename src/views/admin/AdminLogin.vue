@@ -14,16 +14,23 @@
               type="text"
               id="username"
               name="username"
+              v-model="dadosLogin.username"
               required
             />
           </div>
           <div>
             <label for="password">Senha</label>
-            <input type="password" id="password" name="password" required />
+            <input
+              type="password"
+              id="password"
+              name="password"
+              v-model="dadosLogin.password"
+              required
+            />
           </div>
-          <p class="form-alert"></p>
+          <p v-if="alertaErro" class="form-alert">{{ alertaErro }}</p>
         </div>
-        <button type="submit">Entrar</button>
+        <button type="submit" @click.prevent="fazerLogin">Entrar</button>
       </form>
     </article>
     <footer class="admin-footer">
@@ -33,8 +40,56 @@
 </template>
 
 <script>
+import { apiToken, api } from "@/axios/index.js";
+
 export default {
   name: "AdminLogin",
+  data() {
+    return {
+      dadosLogin: {
+        username: "",
+        password: "",
+      },
+      alertaErro: null,
+    };
+  },
+  methods: {
+    fazerLogin() {
+      apiToken
+        .post("/token/", this.dadosLogin)
+        .then((response) => {
+          if (response.status === 200) {
+            localStorage.setItem("accessToken", response.data.access);
+            localStorage.setItem("refreshToken", response.data.access);
+            localStorage.setItem("loginTime", Date.now());
+
+            api.get("/userdetails/").then((response) => {
+              if (response.status === 200) {
+                localStorage.setItem(
+                  "userGroups",
+                  JSON.stringify(response.data.groups)
+                );
+                if (
+                  JSON.parse(localStorage.userGroups).includes("Admin Javiera")
+                ) {
+                  this.$router.push("/admin/");
+                } else {
+                  console.log(
+                    "Usuário não faz parte do grupo de admins, ou não foi possível verificar."
+                  );
+                }
+              }
+            });
+          }
+        })
+        .catch((erro) => {
+          console.log(erro);
+          if (erro.response.data.detail) {
+            this.alertaErro = `${erro.response.data.detail}`;
+          }
+        });
+    },
+  },
 };
 </script>
 

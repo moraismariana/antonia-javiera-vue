@@ -19,6 +19,24 @@ import SobreCMS from "../views/admin/cms/SobreCMS.vue";
 
 Vue.use(VueRouter);
 
+// Função para verificar se usuário está logado e/ou tem permissão para entrar nas rotas de admin
+const verificarLogin = (to, from, next) => {
+  const accessToken = localStorage.accessToken;
+  const userGroups = localStorage.userGroups;
+
+  if (!accessToken) {
+    alert("Faça o login para acessar o Painel de Administração.");
+    return next("/admin/login");
+  }
+
+  if (!userGroups || !JSON.parse(userGroups).includes("Admin Javiera")) {
+    alert("Você não tem permissão para acessar o Painel de Administração");
+    return next("/");
+  }
+
+  next();
+};
+
 const routes = [
   {
     path: "/",
