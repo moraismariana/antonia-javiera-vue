@@ -19,7 +19,7 @@
           <div class="img-container img-mobile">
             <img
               :src="pagInicio.imagens.imagem1"
-              alt="Imagem da professora Antonia sorrindo."
+              alt="Imagem da professora Antonia."
               width="582"
               height="529"
             />
@@ -30,7 +30,7 @@
         <div class="img-container">
           <img
             :src="pagInicio.imagens.imagem1"
-            alt="Imagem da professora Antonia sorrindo."
+            alt="Imagem da professora Antonia."
             width="582"
             height="529"
           />

@@ -3,29 +3,29 @@
     <componente-header :header-bg="true"></componente-header>
 
     <article class="sobre-conteudo">
-      <h1 v-html="sobreTextoCMS.titulo"></h1>
+      <h1 v-html="pagSobre.textos.titulo"></h1>
       <div class="sobre-conteudo-grid">
         <div class="sobre-conteudo-grid-img">
           <img
-            :src="sobreImgCMS.imagem_1"
+            :src="pagSobre.imagens.imagem1"
             alt="Imagem da professora Antonia sorrindo."
             width="582"
             height="529"
           />
         </div>
         <div>
-          <p v-html="sobreTextoCMS.paragrafo_1"></p>
+          <p v-html="pagSobre.textos.paragrafo1"></p>
         </div>
         <div class="sobre-conteudo-grid-img">
           <img
-            :src="sobreImgCMS.imagem_2"
+            :src="pagSobre.imagens.imagem2"
             alt="Violino"
             width="582"
             height="529"
           />
         </div>
         <div>
-          <p v-html="sobreTextoCMS.paragrafo_2"></p>
+          <p v-html="pagSobre.textos.paragrafo2"></p>
         </div>
       </div>
     </article>
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { api } from "@/axios/index.js";
+import { mapState, mapActions } from "vuex";
 
 import ComponenteContato from "@/components/ComponenteContato.vue";
 import ComponenteFooter from "@/components/ComponenteFooter.vue";
@@ -50,38 +50,14 @@ export default {
     ComponenteContato,
     ComponenteFooter,
   },
-  data() {
-    return {
-      sobreTextoCMS: {
-        titulo: "",
-        paragrafo_1: "",
-        paragrafo_2: "",
-      },
-      sobreImgCMS: {
-        imagem_1: "",
-        imagem_2: "",
-      },
-    };
+  computed: {
+    ...mapState(["pagSobre"]),
   },
   methods: {
-    getConteudosCMS() {
-      api.get("/sobretexto/1/").then((response) => {
-        if (response.status === 200) {
-          this.sobreTextoCMS.titulo = response.data.titulo;
-          this.sobreTextoCMS.paragrafo_1 = response.data.paragrafo_1;
-          this.sobreTextoCMS.paragrafo_2 = response.data.paragrafo_2;
-        }
-      });
-      api.get("sobreimg/1/").then((response) => {
-        if (response.status === 200) {
-          this.sobreImgCMS.imagem_1 = response.data.imagem_1;
-          this.sobreImgCMS.imagem_2 = response.data.imagem_2;
-        }
-      });
-    },
+    ...mapActions(["getPagSobre"]),
   },
   created() {
-    this.getConteudosCMS();
+    this.getPagSobre();
   },
 };
 </script>

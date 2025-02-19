@@ -30,6 +30,10 @@ export default new Vuex.Store({
         paragrafo1: "",
         paragrafo2: "",
       },
+      imagens: {
+        imagem1: "",
+        imagem2: "",
+      },
     },
     compContato: {
       textos: {
@@ -51,6 +55,13 @@ export default new Vuex.Store({
       state.pagInicio.imagens.imagem1 = payload.imagens.imagem1;
       state.pagInicio.backgrounds.bg1 = payload.backgrounds.bg1;
       state.pagInicio.backgrounds.bg2 = payload.backgrounds.bg2;
+    },
+    MUDAR_PAG_SOBRE(state, payload) {
+      state.pagSobre.textos.titulo = payload.textos.titulo;
+      state.pagSobre.textos.paragrafo1 = payload.textos.paragrafo1;
+      state.pagSobre.textos.paragrafo2 = payload.textos.paragrafo2;
+      state.pagSobre.imagens.imagem1 = payload.imagens.imagem1;
+      state.pagSobre.imagens.imagem2 = payload.imagens.imagem2;
     },
     MUDAR_COMP_CONTATO(state, payload) {
       state.compContato.textos.contatoTitulo = payload.textos.contatoTitulo;
@@ -81,6 +92,24 @@ export default new Vuex.Store({
             },
           };
           context.commit("MUDAR_PAG_INICIO", dados);
+        }
+      });
+    },
+    getPagSobre(context) {
+      api.get("/paginasobre/1/").then((response) => {
+        if (response.status === 200) {
+          let dados = {
+            textos: {
+              titulo: response.data.titulo,
+              paragrafo1: response.data.paragrafo1,
+              paragrafo2: response.data.paragrafo2,
+            },
+            imagens: {
+              imagem1: response.data.imagem1,
+              imagem2: response.data.imagem2,
+            },
+          };
+          context.commit("MUDAR_PAG_SOBRE", dados);
         }
       });
     },

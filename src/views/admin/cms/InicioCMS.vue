@@ -60,7 +60,7 @@
           <div class="img-container img-mobile">
             <img
               :src="pagInicio.imagens.imagem1"
-              alt="Imagem da professora Antonia sorrindo."
+              alt="Imagem da professora Antonia."
               width="582"
               height="529"
               data-imagem="1"
@@ -134,7 +134,7 @@
 
     <componente-contato :cms="true" class="contato-bg"></componente-contato>
 
-    <componente-footer class="w1"></componente-footer>
+    <componente-footer :cms="true" class="w1"></componente-footer>
   </form>
 </template>
 
