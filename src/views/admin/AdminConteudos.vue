@@ -118,7 +118,6 @@ export default {
   methods: {
     getArtigos() {
       api.get(`/artigos/${this.url}`).then((response) => {
-        console.log(response);
         if (response.data.results) {
           this.artigos = response.data.results;
         }

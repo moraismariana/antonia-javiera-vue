@@ -61,7 +61,6 @@ export default {
           if (response.status === 200) {
             localStorage.setItem("accessToken", response.data.access);
             localStorage.setItem("refreshToken", response.data.access);
-            localStorage.setItem("loginTime", Date.now());
 
             api.get("/userdetails/").then((response) => {
               if (response.status === 200) {
@@ -74,6 +73,9 @@ export default {
                 ) {
                   this.$router.push("/admin/");
                 } else {
+                  localStorage.removeItem("userGroups");
+                  localStorage.removeItem("accessToken");
+                  localStorage.removeItem("refreshToken");
                   console.log(
                     "Usuário não faz parte do grupo de admins, ou não foi possível verificar."
                   );

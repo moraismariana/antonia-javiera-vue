@@ -8,11 +8,43 @@ const axiosTokenInstance = axios.create({
   baseURL: "http://127.0.0.1:8000/api",
 });
 
+const decodeJWT = (token) => {
+  try {
+    const base64Url = token.split(".")[1];
+    const base64 = base64Url.replace(/-/g, "+").replace(/_/g, "/");
+    const jsonPayload = decodeURIComponent(
+      atob(base64)
+        .split("")
+        .map(function (c) {
+          return "%" + ("00" + c.charCodeAt(0).toString(16)).slice(-2);
+        })
+        .join("")
+    );
+    return JSON.parse(jsonPayload);
+  } catch (error) {
+    return null;
+  }
+};
+
 axiosInstance.interceptors.request.use(
   function (config) {
-    const token = localStorage.accessToken;
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    const accessToken = localStorage.accessToken;
+    if (accessToken) {
+      const decodedAccessToken = decodeJWT(accessToken);
+      if (decodedAccessToken && decodedAccessToken.exp) {
+        const isExpired = decodedAccessToken.exp * 1000 < Date.now();
+        if (isExpired) {
+          localStorage.removeItem("accessToken");
+          localStorage.removeItem("refreshToken");
+          localStorage.removeItem("userGroups");
+        } else {
+          config.headers.Authorization = `Bearer ${accessToken}`;
+        }
+      } else {
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
+        localStorage.removeItem("userGroups");
+      }
     }
     return config;
   },

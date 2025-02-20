@@ -1,6 +1,8 @@
 import Vue from "vue";
 import VueRouter from "vue-router";
 
+import verificarLogin from "./guards/verificarLogin.js";
+
 import Inicio from "../views/visitante/Inicio.vue";
 import Sobre from "../views/visitante/Sobre.vue";
 import Conteudos from "../views/visitante/Conteudos.vue";
@@ -18,24 +20,6 @@ import InicioCMS from "../views/admin/cms/InicioCMS.vue";
 import SobreCMS from "../views/admin/cms/SobreCMS.vue";
 
 Vue.use(VueRouter);
-
-// Função para verificar se usuário está logado e/ou tem permissão para entrar nas rotas de admin
-const verificarLogin = (to, from, next) => {
-  const accessToken = localStorage.accessToken;
-  const userGroups = localStorage.userGroups;
-
-  if (!accessToken) {
-    alert("Faça o login para acessar o Painel de Administração.");
-    return next("/admin/login");
-  }
-
-  if (!userGroups || !JSON.parse(userGroups).includes("Admin Javiera")) {
-    alert("Você não tem permissão para acessar o Painel de Administração");
-    return next("/");
-  }
-
-  next();
-};
 
 const routes = [
   {
@@ -74,6 +58,7 @@ const routes = [
         path: "painel",
         name: "AdminPainel",
         component: AdminPainel,
+        beforeEnter: verificarLogin,
       },
       {
         path: "login",
@@ -85,6 +70,7 @@ const routes = [
         name: "AdminArtigo",
         component: AdminArtigo,
         props: true,
+        beforeEnter: verificarLogin,
       },
       {
         path: "cms",
@@ -96,11 +82,13 @@ const routes = [
             path: "inicio",
             name: "InicioCMS",
             component: InicioCMS,
+            beforeEnter: verificarLogin,
           },
           {
             path: "sobre",
             name: "SobreCMS",
             component: SobreCMS,
+            beforeEnter: verificarLogin,
           },
         ],
       },
@@ -108,11 +96,13 @@ const routes = [
         path: "conteudos",
         name: "AdminConteudos",
         component: AdminConteudos,
+        beforeEnter: verificarLogin,
       },
       {
         path: "estatisticas",
         name: "AdminEstatisticas",
         component: AdminEstatisticas,
+        beforeEnter: verificarLogin,
       },
     ],
   },
