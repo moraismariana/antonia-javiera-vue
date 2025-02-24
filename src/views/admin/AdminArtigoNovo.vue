@@ -100,7 +100,7 @@ export default {
     enviarArtigo() {
       api.post("/artigos/", this.artigo).then(() => {
         window.alert("Artigo criado com sucesso!");
-        this.$router.push("/admin/conteudos");
+        this.$router.push({ name: "AdminConteudos" });
       });
     },
   },

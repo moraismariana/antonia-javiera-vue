@@ -71,7 +71,7 @@ export default {
                 if (
                   JSON.parse(localStorage.userGroups).includes("Admin Javiera")
                 ) {
-                  this.$router.push("/admin/");
+                  this.$router.push({ name: "Admin" });
                 } else {
                   localStorage.removeItem("userGroups");
                   localStorage.removeItem("accessToken");

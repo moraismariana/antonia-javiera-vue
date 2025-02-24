@@ -1,19 +1,19 @@
 <template>
   <div id="painel-admin">
     <header class="admin-header">
-      <router-link to="/admin/login"
+      <router-link :to="{ name: 'AdminLogin' }"
         ><img src="@/assets-admin/img/logout.svg" alt="Deslogar"
       /></router-link>
       <img src="@/assets-admin/img/logo.svg" alt="Logo Mariana Morais" />
     </header>
-    <div class="painel-admin-conteudo" data-list-size data-list-size-tam="3">
+    <div class="painel-admin-conteudo">
       <article class="painel-admin-intro">
         <h1>Olá, Antonia!</h1>
         <p>Bem-vinda ao Painel de Administração.</p>
       </article>
       <section class="painel-admin-nav">
         <ul>
-          <li data-list-size-item>
+          <li>
             <router-link :to="{ name: 'InicioCMS' }">
               Editar conteúdo do site
               <img
@@ -22,7 +22,7 @@
               />
             </router-link>
           </li>
-          <li data-list-size-item>
+          <li>
             <router-link :to="{ name: 'AdminConteudos' }">
               Artigos / Blog
               <img
@@ -31,7 +31,7 @@
               />
             </router-link>
           </li>
-          <li data-list-size-item>
+          <li>
             <router-link :to="{ name: 'AdminEstatisticas' }">
               Estatísticas de visitantes
               <img

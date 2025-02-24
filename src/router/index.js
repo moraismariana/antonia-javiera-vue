@@ -23,6 +23,10 @@ Vue.use(VueRouter);
 
 const routes = [
   {
+    path: "*",
+    redirect: "/",
+  },
+  {
     path: "/",
     name: "Inicio",
     component: Inicio,
@@ -49,10 +53,10 @@ const routes = [
     component: Contato,
   },
   {
-    path: "/admin",
+    path: "/aj-admin",
     name: "Admin",
     component: Admin,
-    redirect: "/admin/painel",
+    redirect: { name: "AdminPainel" },
     children: [
       {
         path: "painel",
@@ -76,7 +80,7 @@ const routes = [
         path: "cms",
         name: "AdminCMS",
         component: AdminCMS,
-        redirect: "/admin/cms/inicio",
+        redirect: { name: "InicioCMS" },
         children: [
           {
             path: "inicio",
@@ -112,6 +116,9 @@ const router = new VueRouter({
   mode: "history",
   base: process.env.BASE_URL,
   routes,
+  scrollBehavior(to, from, savedPosition) {
+    return window.scrollTo({ top: 0, behavior: "smooth" });
+  },
 });
 
 export default router;

@@ -148,13 +148,13 @@ export default {
     atualizarArtigo() {
       api.put(`/artigos/${this.param}/`, this.artigo).then(() => {
         window.alert("Artigo atualizado com sucesso!");
-        this.$router.push("/admin/conteudos");
+        this.$router.push({ name: "AdminConteudos" });
       });
     },
     deletarArtigo() {
       api.delete(`/artigos/${this.param}/`).then(() => {
         window.alert("Artigo deletado com sucesso.");
-        this.$router.push("/admin/conteudos");
+        this.$router.push({ name: "AdminConteudos" });
       });
     },
   },

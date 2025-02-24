@@ -10,7 +10,7 @@ const verificarLogin = async (to, from, next) => {
 
   if (!accessToken) {
     alert("Faça o login para acessar o Painel de Administração.");
-    return next("/admin/login");
+    return next({ name: "AdminLogin" });
   }
 
   if (!userGroups || !JSON.parse(userGroups).includes("Admin Javiera")) {
@@ -61,7 +61,7 @@ const verificarLogin = async (to, from, next) => {
           alert(
             "Tempo de login expirado. Faça o login novamente para acessar o Painel de Administração."
           );
-          return next("/admin/login");
+          return next({ name: "AdminLogin" });
         }
       } else {
         // Access token expirou, mas não há refresh token disponível
@@ -71,7 +71,7 @@ const verificarLogin = async (to, from, next) => {
         alert(
           "Tempo de login expirado. Faça o login novamente para acessar o Painel de Administração."
         );
-        return next("/admin/login");
+        return next({ name: "AdminLogin" });
       }
     } else {
       // Access token ainda é válido, continue para a rota
@@ -85,7 +85,7 @@ const verificarLogin = async (to, from, next) => {
     alert(
       "Token inválido. Faça o login novamente para acessar o Painel de Administração."
     );
-    return next("/admin-login");
+    return next({ name: "AdminLogin" });
   }
 };
 
