@@ -1,9 +1,9 @@
 <template>
   <div id="painel-admin">
     <header class="admin-header">
-      <router-link :to="{ name: 'AdminLogin' }"
-        ><img src="@/assets-admin/img/logout.svg" alt="Deslogar"
-      /></router-link>
+      <div @click.prevent="deslogar" class="admin-header-botao">
+        <img src="@/assets-admin/img/logout.svg" alt="Deslogar" />
+      </div>
       <img src="@/assets-admin/img/logo.svg" alt="Logo Mariana Morais" />
     </header>
     <div class="painel-admin-conteudo">
@@ -52,6 +52,23 @@
 <script>
 export default {
   name: "AdminPainel",
+  methods: {
+    deslogar() {
+      const accessToken = localStorage.getItem("accessToken");
+      const refreshToken = localStorage.getItem("refreshToken");
+      const userGroups = localStorage.getItem("userGroups");
+      if (accessToken) {
+        localStorage.removeItem("accessToken");
+      }
+      if (refreshToken) {
+        localStorage.removeItem("refreshToken");
+      }
+      if (userGroups) {
+        localStorage.removeItem("userGroups");
+      }
+      this.$router.push({ name: "AdminLogin" });
+    },
+  },
 };
 </script>
 

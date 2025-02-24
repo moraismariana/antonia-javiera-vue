@@ -24,7 +24,8 @@
       top: $s2 + px-rem(6px);
     }
   }
-  a:nth-of-type(1) {
+  a:nth-of-type(1),
+  .admin-header-botao {
     @include arrow-link;
     box-sizing: border-box;
     margin-left: $s1;
