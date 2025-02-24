@@ -130,32 +130,50 @@ export default {
   },
   methods: {
     colocarDadosNoForm() {
-      api.get(`/artigos/${this.param}/`).then((response) => {
-        if (response.data.titulo) {
-          this.artigo.titulo = response.data.titulo;
-        }
-        if (response.data.descricao) {
-          this.artigo.descricao = response.data.descricao;
-        }
-        if (response.data.conteudo) {
-          this.artigo.conteudo = response.data.conteudo;
-        }
-        if (response.data.fixado) {
-          this.artigo.fixado = response.data.fixado;
-        }
-      });
+      api
+        .get(`/artigos/${this.param}/`)
+        .then((response) => {
+          if (response.data.titulo) {
+            this.artigo.titulo = response.data.titulo;
+          }
+          if (response.data.descricao) {
+            this.artigo.descricao = response.data.descricao;
+          }
+          if (response.data.conteudo) {
+            this.artigo.conteudo = response.data.conteudo;
+          }
+          if (response.data.fixado) {
+            this.artigo.fixado = response.data.fixado;
+          }
+        })
+        .catch((erro) => {
+          console.log(erro);
+          console.log("Não foi possível fazer a requisição GET do artigo.");
+        });
     },
     atualizarArtigo() {
-      api.put(`/artigos/${this.param}/`, this.artigo).then(() => {
-        window.alert("Artigo atualizado com sucesso!");
-        this.$router.push({ name: "AdminConteudos" });
-      });
+      api
+        .put(`/artigos/${this.param}/`, this.artigo)
+        .then(() => {
+          window.alert("Artigo atualizado com sucesso!");
+          this.$router.push({ name: "AdminConteudos" });
+        })
+        .catch((erro) => {
+          console.log(erro);
+          console.log("Não foi possível fazer a requisição PUT.");
+        });
     },
     deletarArtigo() {
-      api.delete(`/artigos/${this.param}/`).then(() => {
-        window.alert("Artigo deletado com sucesso.");
-        this.$router.push({ name: "AdminConteudos" });
-      });
+      api
+        .delete(`/artigos/${this.param}/`)
+        .then(() => {
+          window.alert("Artigo deletado com sucesso.");
+          this.$router.push({ name: "AdminConteudos" });
+        })
+        .catch((erro) => {
+          console.log(erro);
+          console.log("Não foi possível fazer a requisição DELETE.");
+        });
     },
   },
   created() {

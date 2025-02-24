@@ -39,9 +39,15 @@ export default {
   },
   methods: {
     getArtigo() {
-      api.get(`/artigos/${this.artigoId}`).then((response) => {
-        this.artigo = response.data;
-      });
+      api
+        .get(`/artigos/${this.artigoId}`)
+        .then((response) => {
+          this.artigo = response.data;
+        })
+        .catch((erro) => {
+          console.log(erro);
+          console.log("Não foi possível fazer a requisição GET do artigo.");
+        });
     },
   },
   created() {

@@ -449,7 +449,9 @@ export default {
     },
   },
   created() {
-    this.getPagInicio();
+    if (this.headerBg) {
+      this.getPagInicio();
+    }
   },
   mounted() {
     this.menuResponsivo();

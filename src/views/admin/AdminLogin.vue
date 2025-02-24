@@ -62,26 +62,36 @@ export default {
             localStorage.setItem("accessToken", response.data.access);
             localStorage.setItem("refreshToken", response.data.access);
 
-            api.get("/userdetails/").then((response) => {
-              if (response.status === 200) {
-                localStorage.setItem(
-                  "userGroups",
-                  JSON.stringify(response.data.groups)
-                );
-                if (
-                  JSON.parse(localStorage.userGroups).includes("Admin Javiera")
-                ) {
-                  this.$router.push({ name: "Admin" });
-                } else {
-                  localStorage.removeItem("userGroups");
-                  localStorage.removeItem("accessToken");
-                  localStorage.removeItem("refreshToken");
-                  console.log(
-                    "Usuário não faz parte do grupo de admins, ou não foi possível verificar."
+            api
+              .get("/userdetails/")
+              .then((response) => {
+                if (response.status === 200) {
+                  localStorage.setItem(
+                    "userGroups",
+                    JSON.stringify(response.data.groups)
                   );
+                  if (
+                    JSON.parse(localStorage.userGroups).includes(
+                      "Admin Javiera"
+                    )
+                  ) {
+                    this.$router.push({ name: "Admin" });
+                  } else {
+                    localStorage.removeItem("userGroups");
+                    localStorage.removeItem("accessToken");
+                    localStorage.removeItem("refreshToken");
+                    console.log(
+                      "Usuário não faz parte do grupo de admins, ou não foi possível verificar."
+                    );
+                  }
                 }
-              }
-            });
+              })
+              .catch((erro) => {
+                console.log(erro);
+                console.log(
+                  "Não foi possível fazer a requisição à rota userdetails para verificar grupos do usuário."
+                );
+              });
           }
         })
         .catch((erro) => {

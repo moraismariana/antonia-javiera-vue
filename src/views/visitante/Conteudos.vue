@@ -89,44 +89,56 @@ export default {
   },
   methods: {
     getArtigos() {
-      api.get(`/artigos/${this.url}`).then((response) => {
-        if (response.data.results) {
-          this.artigos = response.data.results;
-        }
-        if (response.data.next) {
-          this.apiNext = response.data.next;
-        } else {
-          this.apiNext = null;
-        }
-        if (response.data.previous) {
-          this.apiPrevious = response.data.previous;
-        } else {
-          this.apiPrevious = null;
-        }
-        if (response.data.count) {
-          this.apiCount = response.data.count;
-        }
-      });
+      api
+        .get(`/artigos/${this.url}`)
+        .then((response) => {
+          if (response.data.results) {
+            this.artigos = response.data.results;
+          }
+          if (response.data.next) {
+            this.apiNext = response.data.next;
+          } else {
+            this.apiNext = null;
+          }
+          if (response.data.previous) {
+            this.apiPrevious = response.data.previous;
+          } else {
+            this.apiPrevious = null;
+          }
+          if (response.data.count) {
+            this.apiCount = response.data.count;
+          }
+        })
+        .catch((erro) => {
+          console.log(erro);
+          console.log("Não foi possível fazer a requisição GET de artigos.");
+        });
     },
     alterarPagina(link) {
-      api.get(link).then((response) => {
-        if (response.data.results) {
-          this.artigos = response.data.results;
-        }
-        if (response.data.next) {
-          this.apiNext = response.data.next;
-        } else {
-          this.apiNext = null;
-        }
-        if (response.data.previous) {
-          this.apiPrevious = response.data.previous;
-        } else {
-          this.apiPrevious = null;
-        }
-        if (response.data.count) {
-          this.apiCount = response.data.count;
-        }
-      });
+      api
+        .get(link)
+        .then((response) => {
+          if (response.data.results) {
+            this.artigos = response.data.results;
+          }
+          if (response.data.next) {
+            this.apiNext = response.data.next;
+          } else {
+            this.apiNext = null;
+          }
+          if (response.data.previous) {
+            this.apiPrevious = response.data.previous;
+          } else {
+            this.apiPrevious = null;
+          }
+          if (response.data.count) {
+            this.apiCount = response.data.count;
+          }
+        })
+        .catch((erro) => {
+          console.log(erro);
+          console.log("Não foi possível fazer a requigição GET da página.");
+        });
     },
   },
   watch: {

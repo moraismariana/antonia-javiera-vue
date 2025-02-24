@@ -98,10 +98,16 @@ export default {
   },
   methods: {
     enviarArtigo() {
-      api.post("/artigos/", this.artigo).then(() => {
-        window.alert("Artigo criado com sucesso!");
-        this.$router.push({ name: "AdminConteudos" });
-      });
+      api
+        .post("/artigos/", this.artigo)
+        .then(() => {
+          window.alert("Artigo criado com sucesso!");
+          this.$router.push({ name: "AdminConteudos" });
+        })
+        .catch((erro) => {
+          console.log(erro);
+          console.log("Não foi possível fazer a requisição POST de artigo.");
+        });
     },
   },
 };

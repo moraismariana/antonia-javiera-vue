@@ -249,25 +249,47 @@ export default {
     },
 
     enviarDadosParaAPI() {
-      api.patch("/paginainicio/1/", this.pagInicio.textos).then((response) => {
-        console.log(response);
-      });
+      api
+        .patch("/paginainicio/1/", this.pagInicio.textos)
+        .then((response) => {
+          console.log(response);
+        })
+        .catch(() => {
+          console.log(
+            "Não foi possível enviar textos para a rota /paginainicio/1/. Patch CMS."
+          );
+        });
       api
         .patch("/componentecontato/1/", this.compContato.textos)
         .then((response) => {
           console.log(response);
+        })
+        .catch(() => {
+          console.log(
+            "Não foi possível enviar textos para a rota /componentecontato/1/. Patch CMS."
+          );
         });
 
       if (Array.from(this.novasImgs.entries()).length > 0) {
         api
           .patch("/paginainicio/1/", this.novasImgs)
-          .then((response) => console.log(response));
+          .then((response) => console.log(response))
+          .catch(() => {
+            console.log(
+              "Não foi possível enviar imagens para a rota /paginainicio/1/. Patch CMS."
+            );
+          });
       }
 
       if (Array.from(this.novosBgs.entries()).length > 0) {
         api
           .patch("/paginainicio/1/", this.novosBgs)
-          .then((response) => console.log(response));
+          .then((response) => console.log(response))
+          .catch(() => {
+            console.log(
+              "Não foi possível enviar backgrounds para a rota /paginainicio/1/. Patch CMS."
+            );
+          });
       }
 
       window.alert("Página atualizada com sucesso!");
