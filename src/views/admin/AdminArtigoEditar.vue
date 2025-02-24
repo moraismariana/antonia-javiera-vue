@@ -95,7 +95,7 @@
 </template>
 
 <script>
-import "@/assets-admin/style/scss/style.scss";
+// import "@/assets-admin/style/scss/style.scss";
 import { quillEditor } from "vue-quill-editor";
 import "quill/dist/quill.snow.css";
 import { api } from "@/axios";
@@ -182,6 +182,6 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<!-- <style lang="scss" scoped>
 @import "@/assets-admin/style/scss/style.scss";
-</style>
+</style> -->

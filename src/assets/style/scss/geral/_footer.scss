@@ -48,6 +48,10 @@
   &.w2 {
     background-color: $w2;
   }
+  .footer-link-externo {
+    @include text-2;
+    line-height: 1em;
+  }
 }
 
 // responsividade

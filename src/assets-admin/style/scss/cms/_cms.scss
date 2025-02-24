@@ -3,8 +3,8 @@
 // }
 
 .cms-header {
-  box-sizing: border-box;
-  max-width: 1320px;
+  // box-sizing: border-box;
+  // max-width: 1200px;
   padding: 0;
   position: relative;
   width: calc(100% - 40px);
@@ -17,11 +17,12 @@
 }
 
 .cms-header-content {
+  @include container;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: $s2 $s4;
+  // padding: $s2 $s4;
   gap: $s5;
   div {
     display: flex;
@@ -47,12 +48,14 @@
     font-size: 1em;
   }
   @include screen(tablet) {
-    padding: $s3 $s4;
-
+    padding: 0 $s4;
     p {
       position: static;
       transform: none;
     }
+  }
+  @include screen(mobile) {
+    padding: 0 $s2;
   }
 }
 

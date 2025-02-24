@@ -31,7 +31,12 @@
         </div>
       </div>
       <div>
-        <p>Desenvolvido por Mariana Morais © 2025.</p>
+        <a
+          href="https://moraismariana.com"
+          target="_blank"
+          class="footer-link-externo"
+          >Desenvolvido por Mariana Morais © 2025.</a
+        >
       </div>
     </footer>
     <footer v-else class="footer">

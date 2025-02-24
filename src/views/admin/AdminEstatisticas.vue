@@ -72,6 +72,6 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
+<!-- <style lang="scss" scoped>
 @import "@/assets-admin/style/scss/style.scss";
-</style>
+</style> -->

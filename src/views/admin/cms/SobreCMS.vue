@@ -205,4 +205,6 @@ export default {
 };
 </script>
 
-<style></style>
+<!-- <style lang="scss" scoped>
+@import "@/assets-admin/style/scss/style.scss";
+</style> -->
