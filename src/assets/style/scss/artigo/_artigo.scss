@@ -1,5 +1,13 @@
+.artigo-flex {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .artigo {
   @include container;
+  width: 100%;
+  flex-grow: 1;
   .artigo-voltar {
     @include link-text;
     max-width: fit-content;
@@ -18,22 +26,6 @@
     @include title-2;
     @include mbottom-6;
   }
-  // h2 {
-  //   @include title-3;
-  //   @include mbottom-5;
-  // }
-  // p {
-  //   @include text-1;
-  //   @include mbottom-5;
-  // }
-  // img {
-  //   @include align-div;
-  //   max-width: 100%;
-  //   height: auto;
-  // }
-  // .artigo-imagem {
-  //   @include mbottom-5;
-  // }
   .artigo-conteudo {
     @include mbottom-7;
     h1 {

@@ -19,13 +19,14 @@
 
     <article class="sobre-conteudo">
       <h1>
-        <textarea v-model="pagSobre.textos.titulo" rows="1" required></textarea>
+        <textarea v-model="pagSobre.textos.titulo" required></textarea>
       </h1>
       <div class="sobre-conteudo-grid">
         <div class="sobre-conteudo-grid-img">
           <img
             :src="pagSobre.imagens.imagem1"
-            alt="Imagem da professora Antonia sorrindo."
+            alt="Imagem"
+            class="admin-cms-img"
             width="582"
             height="529"
             data-imagem="1"
@@ -40,17 +41,14 @@
         </div>
         <div>
           <p>
-            <textarea
-              v-model="pagSobre.textos.paragrafo1"
-              rows="6"
-              required
-            ></textarea>
+            <textarea v-model="pagSobre.textos.paragrafo1" required></textarea>
           </p>
         </div>
         <div class="sobre-conteudo-grid-img">
           <img
             :src="pagSobre.imagens.imagem2"
-            alt="Violino"
+            alt="Imagem"
+            class="admin-cms-img"
             width="582"
             height="529"
             data-imagem="2"
@@ -65,11 +63,7 @@
         </div>
         <div>
           <p>
-            <textarea
-              v-model="pagSobre.textos.paragrafo2"
-              rows="6"
-              required
-            ></textarea>
+            <textarea v-model="pagSobre.textos.paragrafo2" required></textarea>
           </p>
         </div>
       </div>
@@ -104,8 +98,36 @@ export default {
   computed: {
     ...mapState(["pagSobre", "compContato"]),
   },
+  watch: {
+    "pagSobre.textos": {
+      handler: function () {
+        this.ajustarAlturaTextarea();
+      },
+      deep: true,
+    },
+    "compContato.textos": {
+      handler: function () {
+        this.ajustarAlturaTextarea();
+      },
+      deep: true,
+    },
+  },
   methods: {
     ...mapActions(["getPagSobre"]),
+
+    ajustarAlturaTextarea() {
+      console.log("funcao ativada");
+      this.$nextTick(() => {
+        const textareas = document.querySelectorAll("textarea");
+        if (textareas.length > 0) {
+          textareas.forEach((item) => {
+            item.style.minHeight = "0";
+            item.style.height = "1em";
+            item.style.height = item.scrollHeight + "px";
+          });
+        }
+      });
+    },
 
     armazenarImagem(event) {
       const imagem = event.target;
@@ -201,6 +223,7 @@ export default {
   },
   created() {
     this.getPagSobre();
+    this.ajustarAlturaTextarea();
   },
 };
 </script>

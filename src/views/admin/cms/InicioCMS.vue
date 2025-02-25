@@ -16,7 +16,7 @@
     </header>
 
     <div
-      class="inicio-introducao-bg"
+      class="inicio-introducao-bg admin-cms-bg"
       :style="{ backgroundImage: `url(${pagInicio.backgrounds.bg1})` }"
       @click="armazenarBackground"
       data-bg="1"
@@ -33,14 +33,12 @@
         <h1>
           <textarea
             v-model="pagInicio.textos.introducaoTitulo"
-            rows="1"
             required
           ></textarea>
         </h1>
         <p>
           <textarea
             v-model="pagInicio.textos.introducaoSubtitulo"
-            rows="1"
             required
           ></textarea>
         </p>
@@ -53,14 +51,14 @@
           <h2>
             <textarea
               v-model="pagInicio.textos.sobreTitulo"
-              rows="2"
               required
             ></textarea>
           </h2>
           <div class="img-container img-mobile">
             <img
               :src="pagInicio.imagens.imagem1"
-              alt="Imagem da professora Antonia."
+              alt="Imagem"
+              class="admin-cms-img"
               width="582"
               height="529"
               data-imagem="1"
@@ -76,7 +74,6 @@
           <p>
             <textarea
               v-model="pagInicio.textos.sobreDescricao"
-              rows="3"
               required
             ></textarea>
           </p>
@@ -85,7 +82,8 @@
         <div class="img-container">
           <img
             :src="pagInicio.imagens.imagem1"
-            alt="Imagem da professora Antonia sorrindo."
+            alt="Imagem"
+            class="admin-cms-img"
             width="582"
             height="529"
             data-imagem="1"
@@ -96,7 +94,7 @@
     </div>
 
     <div
-      class="inicio-conteudos-bg"
+      class="inicio-conteudos-bg admin-cms-bg"
       :style="{ backgroundImage: `url(${pagInicio.backgrounds.bg2})` }"
       @click="armazenarBackground"
       data-bg="2"
@@ -112,14 +110,12 @@
           <h2>
             <textarea
               v-model="pagInicio.textos.artigosTitulo"
-              rows="1"
               required
             ></textarea>
           </h2>
           <p>
             <textarea
               v-model="pagInicio.textos.artigosDescricao"
-              rows="1"
               required
             ></textarea>
           </p>
@@ -162,8 +158,37 @@ export default {
   computed: {
     ...mapState(["pagInicio", "compContato"]),
   },
+  watch: {
+    "pagInicio.textos": {
+      handler: function () {
+        this.ajustarAlturaTextarea();
+      },
+      deep: true,
+    },
+    "compContato.textos": {
+      handler: function () {
+        this.ajustarAlturaTextarea();
+      },
+      deep: true,
+    },
+  },
+
   methods: {
     ...mapActions(["getPagInicio"]),
+
+    ajustarAlturaTextarea() {
+      console.log("funcao ativada");
+      this.$nextTick(() => {
+        const textareas = document.querySelectorAll("textarea");
+        if (textareas.length > 0) {
+          textareas.forEach((item) => {
+            item.style.minHeight = "0";
+            item.style.height = "1em";
+            item.style.height = item.scrollHeight + "px";
+          });
+        }
+      });
+    },
 
     armazenarImagem(event) {
       const imagem = event.target;
@@ -297,6 +322,7 @@ export default {
   },
   created() {
     this.getPagInicio();
+    this.ajustarAlturaTextarea();
   },
 };
 </script>

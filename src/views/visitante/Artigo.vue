@@ -1,8 +1,6 @@
 <template>
-  <div>
-    <div class="header-bg">
-      <componente-header></componente-header>
-    </div>
+  <div class="artigo-flex">
+    <componente-header :header-bg="true"></componente-header>
 
     <article v-if="artigo" class="artigo">
       <router-link class="artigo-voltar" to="/conteudos"

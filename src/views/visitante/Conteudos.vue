@@ -1,8 +1,6 @@
 <template>
-  <div>
+  <div class="conteudos-flex">
     <componente-header :header-bg="true"></componente-header>
-
-    <router-view></router-view>
 
     <section class="conteudos-conteudo">
       <h1 v-html="pagInicio.textos.artigosTitulo"></h1>

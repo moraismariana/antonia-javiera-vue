@@ -62,11 +62,12 @@
 .cms-form {
   input,
   textarea {
+    display: block;
     width: 100%;
     background-color: transparent;
     border: none;
     outline: none;
-    padding: -3em 0;
+    padding: 0;
     overflow-y: visible;
     resize: none;
     box-sizing: border-box;
@@ -82,8 +83,8 @@
       display: none;
     }
   }
-  [data-cms="img"],
-  [data-cms="bg"] {
+  .admin-cms-img,
+  .admin-cms-bg {
     cursor: pointer;
   }
 }

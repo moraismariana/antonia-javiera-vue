@@ -1,5 +1,13 @@
+.conteudos-flex {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
 .conteudos-conteudo {
   @include container;
+  width: 100%;
+  flex-grow: 1;
   h1 {
     @include mtop-7;
     @include mbottom-6;
