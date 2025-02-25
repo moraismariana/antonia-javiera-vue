@@ -5,7 +5,7 @@
     <router-view></router-view>
 
     <section class="conteudos-conteudo">
-      <h1>Artigos, projetos e conteúdos</h1>
+      <h1 v-html="pagInicio.textos.artigosTitulo"></h1>
       <componente-busca></componente-busca>
       <div v-if="artigos" class="conteudos-artigos">
         <router-link
@@ -58,6 +58,7 @@
 
 <script>
 import { api } from "@/axios/index.js";
+import { mapState, mapActions } from "vuex";
 
 import ComponenteFooter from "@/components/ComponenteFooter.vue";
 import ComponenteHeader from "@/components/ComponenteHeader.vue";
@@ -86,8 +87,10 @@ export default {
       }
       return `?${queryString.slice(1)}`;
     },
+    ...mapState(["pagInicio"]),
   },
   methods: {
+    ...mapActions(["getPagInicio"]),
     getArtigos() {
       api
         .get(`/artigos/${this.url}`)
@@ -148,6 +151,7 @@ export default {
   },
   created() {
     this.getArtigos();
+    this.getPagInicio();
   },
 };
 </script>

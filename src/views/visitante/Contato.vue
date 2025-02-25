@@ -1,9 +1,8 @@
 <template>
   <div>
     <componente-header :header-bg="true"></componente-header>
-
     <section class="contato-conteudo">
-      <h1>Contato</h1>
+      <h1 v-html="compContato.textos.contatoTitulo"></h1>
       <form>
         <div>
           <div class="contato-form-element">
@@ -47,6 +46,8 @@
 
 <script>
 import { api } from "@/axios/index.js";
+import { mapState, mapActions } from "vuex";
+
 import ComponenteFooter from "@/components/ComponenteFooter.vue";
 import ComponenteHeader from "@/components/ComponenteHeader.vue";
 
@@ -65,7 +66,11 @@ export default {
       },
     };
   },
+  computed: {
+    ...mapState(["compContato"]),
+  },
   methods: {
+    ...mapActions(["getCompContato"]),
     enviarEmail() {
       api
         .post("/contato/", this.formularioContato)
@@ -99,6 +104,9 @@ export default {
           }
         });
     },
+  },
+  created() {
+    this.getCompContato();
   },
 };
 </script>
