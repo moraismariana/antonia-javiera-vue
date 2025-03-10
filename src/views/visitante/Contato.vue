@@ -13,6 +13,7 @@
               id="nome"
               name="nome"
               required
+              autocomplete="off"
             />
           </div>
           <div class="contato-form-element">
@@ -23,6 +24,7 @@
               id="email"
               name="email"
               required
+              autocomplete="off"
             />
           </div>
         </div>
@@ -96,11 +98,10 @@ export default {
                 window.alert(`${erro.response.data.mensagem[0]}`);
               }
               break;
-            case 500:
+            default:
               window.alert(
                 "Não foi possível enviar o email no momento. Tente novamente mais tarde."
               );
-              break;
           }
         });
     },

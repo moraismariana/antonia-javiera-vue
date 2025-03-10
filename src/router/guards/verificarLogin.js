@@ -1,6 +1,6 @@
 // Função para verificar se usuário está logado e/ou tem permissão para entrar nas rotas de admin
 
-import apiToken from "@/axios/index.js";
+import { apiToken } from "@/axios/index.js";
 
 const verificarLogin = async (to, from, next) => {
   // Torne-a assíncrona para usar await

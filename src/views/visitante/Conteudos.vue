@@ -4,7 +4,7 @@
 
     <section class="conteudos-conteudo">
       <h1 v-html="pagInicio.textos.artigosTitulo"></h1>
-      <componente-busca></componente-busca>
+      <componente-busca v-if="apiCount"></componente-busca>
       <div v-if="artigos" class="conteudos-artigos">
         <router-link
           v-for="artigo in artigos"
@@ -30,7 +30,8 @@
       </div>
 
       <div class="conteudos-paginacao">
-        <p>Total de artigos: {{ apiCount }}</p>
+        <p v-if="apiCount">Total de artigos: {{ apiCount }}</p>
+        <p v-else>Não há artigos publicados no momento.</p>
         <div>
           <div v-if="apiPrevious" @click.prevent="alterarPagina(apiPrevious)">
             <img

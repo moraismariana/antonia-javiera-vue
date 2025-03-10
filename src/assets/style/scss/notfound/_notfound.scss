@@ -1,0 +1,19 @@
+.notfound {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  .notfound-conteudo {
+    @include container;
+    width: 100%;
+    flex: 1;
+    h1 {
+      @include mtop-7;
+      @include mbottom-7;
+      @include title-2;
+    }
+    p {
+      @include text-1;
+      @include mbottom-7;
+    }
+  }
+}

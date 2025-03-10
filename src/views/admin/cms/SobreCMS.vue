@@ -116,7 +116,6 @@ export default {
     ...mapActions(["getPagSobre"]),
 
     ajustarAlturaTextarea() {
-      console.log("funcao ativada");
       this.$nextTick(() => {
         const textareas = document.querySelectorAll("textarea");
         if (textareas.length > 0) {
@@ -174,7 +173,7 @@ export default {
                   this.novasImgs.set(
                     `imagem${chave}`,
                     blob,
-                    `imagem${chave}-${new Date().getTime()}.webp`
+                    `imagem${chave}-${Math.floor(Math.random() * 1000)}.webp`
                   );
                 });
             };
@@ -186,39 +185,57 @@ export default {
     },
 
     enviarDadosParaAPI() {
-      api
-        .patch("/paginasobre/1/", this.pagSobre.textos)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch(() => {
-          console.log(
-            "Não foi possível enviar textos para a rota /paginasobre/1/. Patch CMS."
-          );
-        });
-      api
-        .patch("/componentecontato/1/", this.compContato.textos)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch(() => {
-          console.log(
-            "Não foi possível enviar textos para a rota /componentecontato/1/. Patch CMS."
-          );
-        });
+      let promises = [];
 
-      if (Array.from(this.novasImgs.entries()).length > 0) {
+      // Requisição para atualizar textos da página sobre
+      promises.push(
         api
-          .patch("/paginasobre/1/", this.novasImgs)
-          .then((response) => console.log(response))
+          .patch("/paginasobre/1/", this.pagSobre.textos)
+          .then((response) => {
+            console.log(response);
+          })
           .catch(() => {
             console.log(
-              "Não foi possível enviar imagens para a rota /paginasobre/1/. Patch CMS."
+              "Não foi possível enviar textos para a rota /paginasobre/1/. Patch CMS."
             );
-          });
+          })
+      );
+
+      // Requisição para atualizar textos do componente de contato
+      promises.push(
+        api
+          .patch("/componentecontato/1/", this.compContato.textos)
+          .then((response) => {
+            console.log(response);
+          })
+          .catch(() => {
+            console.log(
+              "Não foi possível enviar textos para a rota /componentecontato/1/. Patch CMS."
+            );
+          })
+      );
+
+      // Requisição condicional para imagens da página sobre
+      if (Array.from(this.novasImgs.entries()).length > 0) {
+        promises.push(
+          api
+            .patch("/paginasobre/1/", this.novasImgs)
+            .then((response) => console.log(response))
+            .catch(() => {
+              console.log(
+                "Não foi possível enviar imagens para a rota /paginasobre/1/. Patch CMS."
+              );
+            })
+        );
       }
 
-      window.alert("Página atualizada com sucesso!");
+      Promise.all(promises)
+        .then(() => {
+          window.alert("Página atualizada com sucesso!");
+        })
+        .catch((error) => {
+          console.error("Erro ao atualizar a página:", error);
+        });
     },
   },
   created() {

@@ -24,7 +24,7 @@
       </article>
 
       <section class="cardapio-nav">
-        <form class="admin-busca">
+        <form class="admin-busca" v-if="apiCount">
           <input size="1" name="busca" id="busca" type="text" v-model="busca" />
           <button
             type="submit"
@@ -36,7 +36,7 @@
           </button>
         </form>
 
-        <ul v-if="artigos">
+        <ul v-if="apiCount">
           <li v-for="artigo in artigos" :key="artigo.id">
             <router-link
               :to="{ name: 'AdminArtigo', params: { param: artigo.id } }"
@@ -56,13 +56,11 @@
 
         <div v-else class="cardapio-aviso">
           <p>Ainda não há nenhum artigo.</p>
-          <p>
-            Crie o primeiro artigo com o botão no canto superior à direita 😉
-          </p>
+          <p>Faça sua primeira publicação com o botão acima. 😉</p>
         </div>
 
         <div class="admin-paginacao">
-          <p>Total de artigos: {{ apiCount }}</p>
+          <p v-if="apiCount">Total de artigos: {{ apiCount }}</p>
           <div>
             <div v-if="apiPrevious" @click.prevent="alterarPagina(apiPrevious)">
               <img

@@ -4,7 +4,7 @@
       <div>
         <img
           src="@/assets/img/geral/logo-footer.svg"
-          alt="Antonia Javiera Logo"
+          alt="Antonia Cabrera Logo"
           width="120"
           height="52"
         />
@@ -43,7 +43,7 @@
       <div>
         <img
           src="@/assets/img/geral/logo-footer.svg"
-          alt="Antonia Javiera Logo"
+          alt="Antonia Cabrera Logo"
           width="120"
           height="52"
         />

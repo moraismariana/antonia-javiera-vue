@@ -31,15 +31,6 @@
               />
             </router-link>
           </li>
-          <li>
-            <router-link :to="{ name: 'AdminEstatisticas' }">
-              Estatísticas de visitantes
-              <img
-                src="@/assets-admin/img/right-arrow.svg"
-                alt="Seta para abrir estatísticas de visitantes"
-              />
-            </router-link>
-          </li>
         </ul>
       </section>
     </div>
@@ -71,7 +62,3 @@ export default {
   },
 };
 </script>
-
-<!-- <style lang="scss" scoped>
-@import "@/assets-admin/style/scss/style.scss";
-</style> -->

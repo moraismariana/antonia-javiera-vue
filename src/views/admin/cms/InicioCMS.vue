@@ -177,7 +177,6 @@ export default {
     ...mapActions(["getPagInicio"]),
 
     ajustarAlturaTextarea() {
-      console.log("funcao ativada");
       this.$nextTick(() => {
         const textareas = document.querySelectorAll("textarea");
         if (textareas.length > 0) {
@@ -235,7 +234,7 @@ export default {
                   this.novasImgs.set(
                     `imagem${chave}`,
                     blob,
-                    `imagem${chave}-${new Date().getTime()}.webp`
+                    `imagem${chave}-${Math.floor(Math.random() * 1000)}.webp`
                   );
                 });
             };
@@ -266,7 +265,7 @@ export default {
             this.novosBgs.set(
               `bg${chave}`,
               bgInput.files[0],
-              `bg${chave}-${new Date().getTime()}.webp`
+              `bg${chave}-${Math.floor(Math.random() * 1000)}.webp`
             );
           }
         });
@@ -274,50 +273,71 @@ export default {
     },
 
     enviarDadosParaAPI() {
-      api
-        .patch("/paginainicio/1/", this.pagInicio.textos)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch(() => {
-          console.log(
-            "Não foi possível enviar textos para a rota /paginainicio/1/. Patch CMS."
-          );
-        });
-      api
-        .patch("/componentecontato/1/", this.compContato.textos)
-        .then((response) => {
-          console.log(response);
-        })
-        .catch(() => {
-          console.log(
-            "Não foi possível enviar textos para a rota /componentecontato/1/. Patch CMS."
-          );
-        });
+      let promises = [];
 
+      // Requisição para atualizar textos da página inicial
+      promises.push(
+        api
+          .patch("/paginainicio/1/", this.pagInicio.textos)
+          .then((response) => {
+            console.log(response);
+          })
+          .catch(() => {
+            console.log(
+              "Não foi possível enviar textos para a rota /paginainicio/1/. Patch CMS."
+            );
+          })
+      );
+
+      // Requisição para atualizar textos do componente de contato
+      promises.push(
+        api
+          .patch("/componentecontato/1/", this.compContato.textos)
+          .then((response) => {
+            console.log(response);
+          })
+          .catch(() => {
+            console.log(
+              "Não foi possível enviar textos para a rota /componentecontato/1/. Patch CMS."
+            );
+          })
+      );
+
+      // Requisição condicional para imagens da página inicial
       if (Array.from(this.novasImgs.entries()).length > 0) {
-        api
-          .patch("/paginainicio/1/", this.novasImgs)
-          .then((response) => console.log(response))
-          .catch(() => {
-            console.log(
-              "Não foi possível enviar imagens para a rota /paginainicio/1/. Patch CMS."
-            );
-          });
+        promises.push(
+          api
+            .patch("/paginainicio/1/", this.novasImgs)
+            .then((response) => console.log(response))
+            .catch(() => {
+              console.log(
+                "Não foi possível enviar imagens para a rota /paginainicio/1/. Patch CMS."
+              );
+            })
+        );
       }
 
+      // Requisição condicional para backgrounds da página inicial
       if (Array.from(this.novosBgs.entries()).length > 0) {
-        api
-          .patch("/paginainicio/1/", this.novosBgs)
-          .then((response) => console.log(response))
-          .catch(() => {
-            console.log(
-              "Não foi possível enviar backgrounds para a rota /paginainicio/1/. Patch CMS."
-            );
-          });
+        promises.push(
+          api
+            .patch("/paginainicio/1/", this.novosBgs)
+            .then((response) => console.log(response))
+            .catch(() => {
+              console.log(
+                "Não foi possível enviar backgrounds para a rota /paginainicio/1/. Patch CMS."
+              );
+            })
+        );
       }
 
-      window.alert("Página atualizada com sucesso!");
+      Promise.all(promises)
+        .then(() => {
+          window.alert("Página atualizada com sucesso!");
+        })
+        .catch((error) => {
+          console.error("Erro ao atualizar a página:", error);
+        });
     },
   },
   created() {
