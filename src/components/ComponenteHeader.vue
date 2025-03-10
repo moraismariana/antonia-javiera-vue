@@ -5,7 +5,7 @@
       :style="{ backgroundImage: `url(${pagInicio.backgrounds.bg1})` }"
     >
       <div v-if="!cms">
-        <header class="header">
+        <header class="header" :class="{ 'menu-mobile-ativo': menuAtivo }">
           <nav>
             <router-link to="/" class="logo-header">
               <!-- width="113"
@@ -31,7 +31,10 @@
               </li>
               <li><router-link to="/contato">Contato</router-link></li>
             </ul>
-            <div class="menu-mobile-icone">
+            <div
+              @click.prevent="menuAtivo = !menuAtivo"
+              class="menu-mobile-icone"
+            >
               <button>
                 <svg
                   width="20"
@@ -48,7 +51,7 @@
             </div>
           </nav>
         </header>
-        <div class="menu-mobile">
+        <div class="menu-mobile" :class="{ 'menu-mobile-ativo': menuAtivo }">
           <ul>
             <li><router-link to="/">Início</router-link></li>
             <li><router-link to="/sobre">Sobre</router-link></li>
@@ -60,7 +63,7 @@
         </div>
       </div>
       <div v-else>
-        <header class="header">
+        <header class="header" :class="{ 'menu-mobile-ativo': menuAtivo }">
           <nav>
             <router-link :to="{ name: 'InicioCMS' }" class="logo-header">
               <svg
@@ -84,7 +87,10 @@
                 <router-link :to="{ name: 'SobreCMS' }">Sobre</router-link>
               </li>
             </ul>
-            <div class="menu-mobile-icone">
+            <div
+              @click.prevent="menuAtivo = !menuAtivo"
+              class="menu-mobile-icone"
+            >
               <button>
                 <svg
                   width="20"
@@ -101,7 +107,7 @@
             </div>
           </nav>
         </header>
-        <div class="menu-mobile">
+        <div class="menu-mobile" :class="{ 'menu-mobile-ativo': menuAtivo }">
           <ul>
             <li>
               <router-link :to="{ name: 'InicioCMS' }">Início</router-link>
@@ -114,7 +120,7 @@
 
     <div v-else>
       <div v-if="!cms">
-        <header class="header">
+        <header class="header" :class="{ 'menu-mobile-ativo': menuAtivo }">
           <nav>
             <router-link to="/" class="logo-header">
               <svg
@@ -138,7 +144,10 @@
               </li>
               <li><router-link to="/contato">Contato</router-link></li>
             </ul>
-            <div class="menu-mobile-icone">
+            <div
+              @click.prevent="menuAtivo = !menuAtivo"
+              class="menu-mobile-icone"
+            >
               <button>
                 <svg
                   width="20"
@@ -155,7 +164,7 @@
             </div>
           </nav>
         </header>
-        <div class="menu-mobile">
+        <div class="menu-mobile" :class="{ 'menu-mobile-ativo': menuAtivo }">
           <ul>
             <li><router-link to="/">Início</router-link></li>
             <li><router-link to="/sobre">Sobre</router-link></li>
@@ -167,7 +176,7 @@
         </div>
       </div>
       <div v-else>
-        <header class="header">
+        <header class="header" :class="{ 'menu-mobile-ativo': menuAtivo }">
           <nav>
             <router-link :to="{ name: 'InicioCMS' }" class="logo-header">
               <svg
@@ -191,7 +200,10 @@
                 <router-link :to="{ name: 'SobreCMS' }">Sobre</router-link>
               </li>
             </ul>
-            <div class="menu-mobile-icone">
+            <div
+              @click.prevent="menuAtivo = !menuAtivo"
+              class="menu-mobile-icone"
+            >
               <button>
                 <svg
                   width="20"
@@ -208,7 +220,7 @@
             </div>
           </nav>
         </header>
-        <div class="menu-mobile">
+        <div class="menu-mobile" :class="{ 'menu-mobile-ativo': menuAtivo }">
           <ul>
             <li>
               <router-link :to="{ name: 'InicioCMS' }">Início</router-link>
@@ -224,48 +236,24 @@
 <script>
 import { mapState, mapActions } from "vuex";
 
-const botaoMenu = document.querySelector(".menu-mobile-icone button");
-const menuMobile = document.querySelector(".menu-mobile");
-const headerPadrao = document.querySelector(".header");
-const classeAtivo = "menu-mobile-ativo";
-
 export default {
   name: "ComponenteHeader",
   props: ["cms", "header-bg"],
+  data() {
+    return {
+      menuAtivo: false,
+    };
+  },
   computed: {
     ...mapState(["pagInicio"]),
   },
   methods: {
     ...mapActions(["getPagInicio"]),
-    menuResponsivo() {
-      if (botaoMenu && menuMobile && headerPadrao) {
-        botaoMenu.addEventListener("click", (event) => {
-          event.preventDefault();
-          if (menuMobile.classList.contains(classeAtivo)) {
-            menuMobile.classList.remove(classeAtivo);
-            headerPadrao.classList.remove(classeAtivo);
-          } else {
-            menuMobile.classList.add(classeAtivo);
-            headerPadrao.classList.add(classeAtivo);
-          }
-        });
-
-        menuMobile.querySelectorAll("a").forEach((link) => {
-          link.addEventListener("click", () => {
-            menuMobile.classList.toggle(classeAtivo);
-            headerPadrao.classList.toggle(classeAtivo);
-          });
-        });
-      }
-    },
   },
   created() {
     if (this.headerBg) {
       this.getPagInicio();
     }
-  },
-  mounted() {
-    this.menuResponsivo();
   },
 };
 </script>
