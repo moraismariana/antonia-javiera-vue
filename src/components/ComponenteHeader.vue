@@ -224,6 +224,11 @@
 <script>
 import { mapState, mapActions } from "vuex";
 
+const botaoMenu = document.querySelector(".menu-mobile-icone button");
+const menuMobile = document.querySelector(".menu-mobile");
+const headerPadrao = document.querySelector(".header");
+const classeAtivo = "menu-mobile-ativo";
+
 export default {
   name: "ComponenteHeader",
   props: ["cms", "header-bg"],
@@ -233,16 +238,16 @@ export default {
   methods: {
     ...mapActions(["getPagInicio"]),
     menuResponsivo() {
-      const botaoMenu = document.querySelector(".menu-mobile-icone button");
-      const menuMobile = document.querySelector(".menu-mobile");
-      const headerPadrao = document.querySelector(".header");
-      const classeAtivo = "menu-mobile-ativo";
-
       if (botaoMenu && menuMobile && headerPadrao) {
         botaoMenu.addEventListener("click", (event) => {
           event.preventDefault();
-          menuMobile.classList.toggle(classeAtivo);
-          headerPadrao.classList.toggle(classeAtivo);
+          if (menuMobile.classList.contains(classeAtivo)) {
+            menuMobile.classList.remove(classeAtivo);
+            headerPadrao.classList.remove(classeAtivo);
+          } else {
+            menuMobile.classList.add(classeAtivo);
+            headerPadrao.classList.add(classeAtivo);
+          }
         });
 
         menuMobile.querySelectorAll("a").forEach((link) => {
